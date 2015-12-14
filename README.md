@@ -5,3 +5,11 @@ This is an application that is being built to further my understanding of the Cl
 #Command Line Options
 
 `lein cljfmt fix`: will clean up the code base to standard formatting
+
+#REPL tricks
+
+#VIM Tricks
+
+:bd - delete buffer (an open file)
+:NERDTree - open the file system thingy
+http://www.cheatography.com/stepk/cheat-sheets/vim-nerdtree/
