@@ -20,7 +20,9 @@
                       [wrap-defaults :defaults]
                       [wrap-route-aliases :aliases]]
          :not-found  (io/resource "app/errors/404.html")
-         :defaults   (meta-merge site-defaults {:static {:resources "app/public"}})
+         :defaults   (meta-merge site-defaults {:static {:resources "app/public"}
+                                                :security {:anti-forgery false}
+                                                })
          :aliases    {"/" "/index.html"}}})
 
 (defn new-system [cfg]
