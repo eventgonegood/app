@@ -7,6 +7,7 @@
                  [compojure "1.4.0"]
                  [duct "0.5.6"]
                  [environ "1.0.1"]
+                 [enlive "1.1.6"]
                  [meta-merge "0.1.1"]
                  [org.clojure/clojure "1.7.0"]
                  [org.postgresql/postgresql "9.4-1201-jdbc41"]
