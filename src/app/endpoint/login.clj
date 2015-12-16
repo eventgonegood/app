@@ -8,6 +8,10 @@
             [ring.util.anti-forgery :refer [anti-forgery-field]]
             [clojure.java.io :as io]))
 
+(html/defsnippet foot-js "app/templates/foot-js.html" [:script] []
+  ;no content to replace just grabbing the script tags
+  )
+
 (html/deftemplate layout "app/templates/sample.html"  [title] 
   [:head :title]  (html/content title))
 
