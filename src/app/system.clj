@@ -27,13 +27,13 @@
 
 (defn new-system [cfg]
   (let [config (meta-merge base-config cfg)
-        {:keys [accounts connection]} config]
+        {:keys [connection]} config]
     (-> (component/system-map
          :app  (handler-component (:app config))
          :http (jetty-server (:http config))
          :example (endpoint-component example-endpoint)
          :login (endpoint-component login-endpoint)
-         :accounts (new-accounts accounts connection))
+         :accounts (new-accounts connection))
         (component/system-using
          {:http [:app]
           :app  [:example :login]

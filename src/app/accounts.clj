@@ -31,9 +31,8 @@
   Accounts
   (find [this username]
     (->
-     (find-user {:username username} this)
+     (find-user-roles {:username username} this)
      first)))
 
-(defn new-accounts [cfg connection]
-  (map->PgAccounts {:cfg cfg
-                    :connection connection}))
+(defn new-accounts [connection]
+  (map->PgAccounts {:connection connection}))

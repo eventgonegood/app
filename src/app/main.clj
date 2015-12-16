@@ -10,7 +10,6 @@
 (def prod-config
   {;:app {:middleware     [[wrap-hide-errors :internal-error]]
     ;     :internal-error (io/resource "errors/500.html")}
-   :accounts {:name "dru"}
    :connection {:classname "org.postgresql.Driver"
                 :subprotocol "postgresql"
                 :subname "//localhost:5432/egg"
