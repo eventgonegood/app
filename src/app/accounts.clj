@@ -8,6 +8,14 @@
 
 (defqueries "sql/accounts.sql")
 
+(defn format-user [rows]
+  (let [first-row (first rows)
+        u (dissoc first-row :role)
+        roles (vec (map :role rows))
+        ]
+    (assoc u :roles roles))
+  )
+
 (defprotocol Accounts 
   (auth [this username password] "authenticate user")
   (find [this username] "find user by username"))
@@ -34,7 +42,7 @@
   (find [this username]
     (->
      (find-user-roles {:username username} this)
-     first))
+     format-user))
   (auth [this username password]
    (let [user (find this username)
          unauthed [false "Invalid username or password"]]

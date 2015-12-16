@@ -47,3 +47,9 @@
 ;;- (suspend) - will suspend the components, if they don't support that it will stop them
 ;;- (resume) - will resume the components, if they don't support that it will start them
 
+;;vim fireplace commands
+;;cpp: evaluate form and print
+
+;; paraedit tricks
+;; (vec) map -> (vec map) - <leader> > 
+
