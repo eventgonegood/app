@@ -2,7 +2,8 @@
   :description "FIXME: write description"
   :url "http://example.com/FIXME"
   :min-lein-version "2.0.0"
-  :dependencies [[cheshire "5.5.0"]
+  :dependencies [[buddy "0.8.3"]
+                 [cheshire "5.5.0"]
                  [com.stuartsierra/component "0.3.0"]
                  [compojure "1.4.0"]
                  [duct "0.5.6"]

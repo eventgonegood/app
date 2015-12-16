@@ -2,12 +2,14 @@
   (:refer-clojure :exclude [find])
   (:require 
    [com.stuartsierra.component :as component]
+   [buddy.hashers :as hs]
    [yesql.core :refer [defqueries]]
    [clojure.pprint :refer [pprint]]))
 
 (defqueries "sql/accounts.sql")
 
 (defprotocol Accounts 
+  (auth [this username password] "authenticate user")
   (find [this username] "find user by username"))
 
 (defrecord PgAccounts []
@@ -32,7 +34,18 @@
   (find [this username]
     (->
      (find-user-roles {:username username} this)
-     first)))
+     first))
+  (auth [this username password]
+   (let [user (find this username)
+         unauthed [false "Invalid username or password"]]
+     (if user
+       (if (hs/check password (:password user))
+         [true {:user (dissoc user :password)}]
+         unauthed
+         )
+       unauthed)))
+  
+  )
 
 (defn new-accounts [connection]
   (map->PgAccounts {:connection connection}))
