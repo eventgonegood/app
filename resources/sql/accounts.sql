@@ -17,8 +17,9 @@ FROM accounts.roles
 
 -- name: find-user-roles
 -- finds a user and the users roles
-SELECT u.*, r.name AS role
+SELECT u.*, o.name AS organization, r.name AS role
 FROM accounts.users AS u
 INNER JOIN accounts.memberships AS m ON m.user_id = u.id
 INNER JOIN accounts.roles AS r ON m.role_id = r.id
-WHERE username = :username;
+INNER JOIN accounts.organizations AS o ON o.id = m.organization_id
+WHERE u.username = :username;
