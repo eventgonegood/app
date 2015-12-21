@@ -14,6 +14,7 @@
                  [org.postgresql/postgresql "9.4-1201-jdbc41"]
                  [org.slf4j/slf4j-nop "1.7.12"]
                  [org.webjars/normalize.css "3.0.2"]
+                 [ragtime "0.5.2"]
                  [ring "1.4.0"]
                  [ring-jetty-component "0.3.0"]
                  [ring-webjars "0.1.1"]
@@ -40,6 +41,5 @@
                                   [eftest "0.1.0"]
                                   [kerodon "0.7.0"]]
                    :source-paths ["dev"]
-                   :repl-options {:init-ns user}
-                   :env {:port 5000}}
+                   :repl-options {:init-ns user}}
    :project/test  {}})

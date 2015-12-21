@@ -17,8 +17,7 @@
    :connection {:classname "org.postgresql.Driver"
                 :subprotocol "postgresql"
                 :subname "//localhost:5432/egg"
-                :user "egg"}  
-   })
+                :user "egg"}})
 
 (def config
   (meta-merge config/defaults

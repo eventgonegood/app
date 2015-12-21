@@ -2,7 +2,11 @@
   (:require [environ.core :refer [env]]))
 
 (def defaults
-  ^:displace {:http {:port 5000}})
+  ^:displace {:http {:port 5000 :host "localhost"}
+              :database {:classname "org.postgresql.Driver"
+                         :subprotocol "postgresql"
+                         :subname "//localhost:5432/egg"
+                         :user "egg"}})
 
 ;;env pulls from .lein-env / env var / java system properties
 ;;profiles.clj gets transformed into .lein-env

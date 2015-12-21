@@ -12,7 +12,8 @@ CREATE TABLE competitions.competitions
   CONSTRAINT pk_competitions PRIMARY KEY (id),
   CONSTRAINT uq_competitions_name UNIQUE (name)
 );
-
+ALTER TABLE competitions.competitions
+  OWNER TO egg;
 
 CREATE TABLE competitions.divisions
 (
@@ -22,8 +23,9 @@ CREATE TABLE competitions.divisions
   description text NOT NULL,
   CONSTRAINT pk_divisions PRIMARY KEY (id),
   FOREIGN KEY (competition_id) REFERENCES competitions.competitions (id)
-);
-
+j;
+ALTER TABLE competitions.divisions
+  OWNER TO egg;
 
 CREATE TABLE competitions.events
 (
@@ -36,45 +38,48 @@ CREATE TABLE competitions.events
   FOREIGN KEY (competition_id) REFERENCES competitions.competitions (id),
   FOREIGN KEY (division_id) REFERENCES competitions.divisions (id)
 );
-   
-CREATE TABLE competitions.parts
-(
-  id serial NOT NULL,
-  event_id int NOT NULL,
-  duration interval NOT NULL DEFAULT '1:00:00'::interval,
-  priority workouts.priority NOT NULL,
-  rounds int NOT NULL DEFAULT 1,
-  CONSTRAINT pk_parts PRIMARY KEY (id),
-  FOREIGN KEY (event_id) REFERENCES competitions.events (id)
-);
-ALTER TABLE competitions.parts
+ALTER TABLE competitions.events
   OWNER TO egg;
 
-CREATE TABLE competitions.steps
+CREATE TABLE competitions.measures
 (
+
   id serial NOT NULL,
-  part_id int NOT NULL,
-  line int NOT NULL,
-  movement int NOT NULL,
-  load int NOT NULL,
-  load_uom char(2) NOT NULL,
-  qty int NOT NULL,
-  qty_uom char(2) NOT NULL,
-  notes text NOT NULL DEFAULT '',
-    CONSTRAINT pk_steps PRIMARY KEY (id),
-  FOREIGN KEY (part_id) REFERENCES competitions.parts (id)
+  event_id int NOT NULL,
+  name text NOT NULL DEFAULT '',
+  description text NOT NULL DEFAULT '',
+  sort workouts.priority NOT NULL,
+  conversion_factor int NOT NULL DEFAULT 1,
+  CONSTRAINT pk_measures PRIMARY KEY (id),
+  FOREIGN CONSTRAINT (event_id) REFERENCES competitions.events (id)
 );
-ALTER TABLE competitions.steps
+ALTER TABLE competition.measures
   OWNER TO egg;
 
 CREATE TABLE competitions.competitors
 (
 	id serial NOT NULL,
-  name text NOT NULL,
 	competition_id int NOT NULL,
 	division_id int NOT NULL,
+    identifier text NOT NULL DEFAULT '', --like a bib number
+    name text NOT NULL,
+    CONSTRAINT pk_competitors PRIMARY_KEY(id),
 	FOREIGN KEY (competition_id) REFERENCES competitions.competitions (id),
 	FOREIGN KEY (division_id) REFERENCES competitions.divisions (id)
 );
+ALTER TABLE competitions.competitors
+  OWNER TO egg;
 
-
+CREATE TABLE competitions.scores
+(
+  event_id int NOT NULL,
+  competitor_id int NOT NULL,
+  measure_id int NOT NULL,
+  value int NOT NULL, --how to support 'dropouts'
+  CONSTRAINT pk_scores PRIMARY_KEY(event_id, competitor_id, measure_id),
+  FOREIGN KEY (event_id) REFERENECS competitions.events (id),
+  FOREIGN KEY (competitor_id) REFERENECS competitions.competitors (id),
+  FOREIGN KEY (measure_id) REFERENECS competitions.measures (id)
+);
+ALTER TABLE competitions.scores
+  OWNER TO egg;
