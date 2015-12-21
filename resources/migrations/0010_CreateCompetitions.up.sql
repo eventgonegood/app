@@ -23,7 +23,7 @@ CREATE TABLE competitions.divisions
   description text NOT NULL,
   CONSTRAINT pk_divisions PRIMARY KEY (id),
   FOREIGN KEY (competition_id) REFERENCES competitions.competitions (id)
-j;
+);
 ALTER TABLE competitions.divisions
   OWNER TO egg;
 
@@ -43,7 +43,6 @@ ALTER TABLE competitions.events
 
 CREATE TABLE competitions.measures
 (
-
   id serial NOT NULL,
   event_id int NOT NULL,
   name text NOT NULL DEFAULT '',
@@ -51,9 +50,9 @@ CREATE TABLE competitions.measures
   sort workouts.priority NOT NULL,
   conversion_factor int NOT NULL DEFAULT 1,
   CONSTRAINT pk_measures PRIMARY KEY (id),
-  FOREIGN CONSTRAINT (event_id) REFERENCES competitions.events (id)
+  FOREIGN KEY (event_id) REFERENCES competitions.events (id)
 );
-ALTER TABLE competition.measures
+ALTER TABLE competitions.measures
   OWNER TO egg;
 
 CREATE TABLE competitions.competitors
@@ -63,7 +62,7 @@ CREATE TABLE competitions.competitors
 	division_id int NOT NULL,
     identifier text NOT NULL DEFAULT '', --like a bib number
     name text NOT NULL,
-    CONSTRAINT pk_competitors PRIMARY_KEY(id),
+    CONSTRAINT pk_competitors PRIMARY KEY(id),
 	FOREIGN KEY (competition_id) REFERENCES competitions.competitions (id),
 	FOREIGN KEY (division_id) REFERENCES competitions.divisions (id)
 );
@@ -76,10 +75,10 @@ CREATE TABLE competitions.scores
   competitor_id int NOT NULL,
   measure_id int NOT NULL,
   value int NOT NULL, --how to support 'dropouts'
-  CONSTRAINT pk_scores PRIMARY_KEY(event_id, competitor_id, measure_id),
-  FOREIGN KEY (event_id) REFERENECS competitions.events (id),
-  FOREIGN KEY (competitor_id) REFERENECS competitions.competitors (id),
-  FOREIGN KEY (measure_id) REFERENECS competitions.measures (id)
+  CONSTRAINT pk_scores PRIMARY KEY(event_id, competitor_id, measure_id),
+  FOREIGN KEY (event_id) REFERENCES competitions.events (id),
+  FOREIGN KEY (competitor_id) REFERENCES competitions.competitors (id),
+  FOREIGN KEY (measure_id) REFERENCES competitions.measures (id)
 );
 ALTER TABLE competitions.scores
   OWNER TO egg;

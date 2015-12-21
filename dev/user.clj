@@ -12,16 +12,11 @@
             [app.system :as system]))
 
 (def dev-config
-  {:app {:middleware [wrap-stacktrace]}
-
-   :connection {:classname "org.postgresql.Driver"
-                :subprotocol "postgresql"
-                :subname "//localhost:5432/egg"
-                :user "egg"}})
+  {:app {:middleware [wrap-stacktrace]}})
 
 (def config
   (meta-merge config/defaults
-              config/environ
+              config/environ 
               dev-config))
 
 (defn new-system []

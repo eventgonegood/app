@@ -11,6 +11,7 @@
             [ring.middleware.webjars :refer [wrap-webjars]]
             [app.endpoint.example :refer [example-endpoint]]
             [app.endpoint.login :refer [login-endpoint]]
+            [app.migrate :refer [new-ragtime]]
             [clojure.pprint :refer [pprint]]
             [app.accounts :refer [new-accounts]]))
 
@@ -26,9 +27,10 @@
 
 (defn new-system [cfg]
   (let [config (meta-merge base-config cfg)
-        {:keys [connection]} config]
+        {:keys [connection database]} config]
     (-> (component/system-map
          :app  (handler-component (:app config))
+         :ragtime (new-ragtime {:database database})
          :http (jetty-server (:http config))
          :example (endpoint-component example-endpoint)
          :login (endpoint-component login-endpoint)
