@@ -12,7 +12,7 @@
   ;no content to replace just grabbing the script tags
 )
 
-(html/deftemplate layout "app/templates/sample.html"  [title] 
+(html/deftemplate container "app/templates/container.html"  [title] 
   [:head :title]  (html/content title))
 
 ;;config will contain the component items
@@ -20,7 +20,7 @@
   (context "/login" []
     (GET "/" []
       (let [f (anti-forgery-field)]
-        (layout "hi")))
+        (container "hi")))
     (GET "/success" []
       "SUCCESS")
     (GET "/failure" []

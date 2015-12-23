@@ -1,0 +1,23 @@
+
+section {
+    lost-center: 1140px;
+    lost-utility: clearfix;
+    lost-align: center;
+    background: #F0D2D1;
+    height: 300px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+div {
+    text-align: center;
+    margin-top: (30px / 2);
+    margin-bottom: (30px / 2);
+}
+
+.login {
+    lost-column: 1/3;
+    background: #e5b1af;
+    margin-top: 0;
+    margin-bottom: 0;
+}

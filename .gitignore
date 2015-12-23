@@ -11,3 +11,5 @@ pom.xml.asc
 dev/local.clj
 *.swp
 *.swo
+node_modules
+bundle.js

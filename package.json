@@ -1,0 +1,31 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "yo",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "autoprefixer": "^6.2.1",
+    "css-loader": "^0.23.1",
+    "lost": "^6.6.2",
+    "postcss": "^5.0.13",
+    "postcss-loader": "^0.8.0",
+    "precss": "^1.3.0",
+    "style-loader": "^0.13.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eventgonegood/app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eventgonegood/app/issues"
+  },
+  "homepage": "https://github.com/eventgonegood/app"
+}
