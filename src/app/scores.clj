@@ -1,7 +1,9 @@
 (ns app.scores (:require [clojure.pprint :refer [pprint]]
                          [clojure.set :as set]))
 
-(defn extract-scores [scores index]
+(defn extract-scores 
+  "Given a sequence of scores will extract a vector of values"
+  [scores index]
   (let [scores-to-rank (map #(get-in % [:scores index]) scores)
         score-values (map :value scores-to-rank)]
     score-values))
@@ -10,7 +12,10 @@
 ; :task sorts >
 ; nil value is always last
 ; expecting [22 23 24]
-(defn rank-scores [scores-to-rank event-def] 
+(defn rank-scores 
+  "Given a vector of scores and an event definition will return a dense 
+   ranked value in the form of a dictionary {score rank, score rank}"
+  [scores-to-rank event-def] 
   ;sort-by key-fn comparison collection
   (let [sorter (if (= :time (:priority event-def)) < >)
         sorted-values (sort sorter scores-to-rank)
@@ -18,51 +23,36 @@
         rank-tuples (map vector distinct-sorted-values (iterate inc 1))]
     (into {} (vec rank-tuples))))
 
-(defn apply-rank [score index ranked-scores]
+(defn apply-rank 
+  "Given an athletes scores, the index of the event, and the rankings
+   this will assoc :rank onto the value object.
+   {:value 22} -> {:value 22 :rank 4}"
+  [score index ranked-scores]
   (let [v (get-in score [:scores index :value])
         r (get ranked-scores v)]
     ;need to assoc in :scores index
     (assoc-in score [:scores index :rank] r)))
 
-;1,1,3,4,4,6
-(defn sparse-rank [event-defs scores]
+(defn sparse-rank 
+  "Sparse rank returns ranked scores in the ranking format of [1 1 3 4 4 6]"
+  [event-defs scores]
   (let [entry-count (count scores)
         event-count (count event-defs)]))
 
-;1,1,2,3,3,4
-(defn dense-rank [scores event-defs]
-  (map-indexed (fn [i event-def]
-                 (let [priority (:priority event-def)
-                       score-vals (extract-scores scores i)
-                       ranks (rank-scores score-vals event-def)]
-                   (map (fn [score]
-                          (apply-rank score i ranks)) scores))) event-defs))
+(defn dense-rank 
+  "Dense rank returnes ranked scores in the ranking format of [1 1 2 3 3 4]"
+  [scores event-defs]
+  (vec 
+   (map-indexed (fn [i event-def]
+                  (let [priority (:priority event-def)
+                        score-vals (extract-scores scores i)
+                        ranks (rank-scores score-vals event-def)]
+                    (mapv (fn [score]
+                            (apply-rank score i ranks)) scores))) event-defs)))
 
 ;values are the identity
 ;extract the values
 ;rank them, then assign the rank back to the value
-
-(defn sample-score [name v1 v2]
-  {:name name
-   :scores [{:value v1}
-            {:value v2}]})
-
-(defn sample-event [event-name priority]
-  {:name event-name
-   :priority priority})
-
-(def sample-scores
-  [(sample-score "Jeff Vanlandingham" 20 20) 
-   (sample-score "Jeremy Kampen" 21 21)
-   (sample-score "Reid Reagan" 22 22)
-   (sample-score "Albert Leyva" 23 23)])
-
-(def sample-events 
-  [(sample-event "Fran" :time)
-   (sample-event "Grace" :task)])
-
-(dense-rank sample-scores sample-events)
-(sparse-rank sample-scores  sample-events)
 
 (defn merge-scores [a b]
   (let [a-scores (:scores a)
