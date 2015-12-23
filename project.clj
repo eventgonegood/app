@@ -3,6 +3,7 @@
   :url "http://example.com/FIXME"
   :min-lein-version "2.0.0"
   :dependencies [[buddy "0.8.3"]
+                 [abengoa/clj-stripe "1.0.4"]
                  [cheshire "5.5.0"]
                  [com.stuartsierra/component "0.3.0"]
                  [compojure "1.4.0"]
@@ -21,7 +22,9 @@
                  [ring/ring-defaults "0.1.5"]
                  [yesql "0.5.1"]]
   :plugins [[lein-environ "1.0.1"]
+            [lein-ancient "0.6.8"]
             [lein-cljfmt "0.3.0"]
+            [lein-marginalia "0.8.0"]
             [lein-gen "0.2.2"]]
   :generators [[duct/generators "0.5.6"]]
   :duct {:ns-prefix app}
