@@ -1,0 +1,80 @@
+.leaderboard {
+    border-spacing: 0;
+    border: 1px solid #cbcbcb;
+    border-collapse: collapse;
+    width:100%;
+}
+
+.leaderboard th {
+
+    background: #cbcbcb;
+}
+
+.leaderboard th, .leaderboard td {
+    padding: 0.5rem 1rem;
+    border: 1px solid #cbcbcb;
+    border-width:0 0 1px;
+}
+
+td.rank {
+
+}
+
+td.rank div:nth-child(1) {
+    height:35px;
+    font-size:22pt;
+    font-weight:bold;
+}
+
+
+td.rank div:nth-child(2) {
+    font-size:10pt;
+    color: #cbcbcb;
+}
+
+td.athlete div:nth-child(1) {
+    height: 35px;
+    display:table-cell;
+    vertical-align: bottom;
+    font-size: 12pt;
+    font-weight:bold;
+}
+
+td.athlete div:nth-child(2) {
+    font-size: 10pt;
+    color: #cbcbcb;
+}
+
+td.event > div:nth-child(1) {
+    display: table-cell;
+    vertical-align: bottom;
+    font-size:22pt;
+    float:left;
+    height:35px;
+}
+td.event div:nth-child(2) div:nth-child(1),
+td.event div:nth-child(2) div:nth-child(2) {
+    font-size:10pt;
+    color:#999;
+}
+td.event div:nth-child(2) div:nth-child(2) {
+    color:#bbb;
+}
+
+td.event > div:nth-child(2) {
+    float:right;
+}
+
+@media all and (max-width: 320px) {
+    .leaderboard {
+        width: 320px;
+    }
+
+    .leaderboard th.event, .leaderboard td.event {
+        display:none;
+        width:0;
+        height:0;
+        opacity:0;
+        visibility: collapse;       
+} 
+}

@@ -1,29 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" class="welcome">
+<html>
   <head>
-    <title>Welcome to Duct</title>
-    <link rel="stylesheet" href="/assets/normalize.css/normalize.css">
-    <link rel="stylesheet" href="/css/site.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/css/demo_devcards_style.css" rel="stylesheet" type="text/css">
   </head>
   <body>
-    <h1>Welcome to <span class="outer"><span class="inner">Duct</span></span></h1>
-    <div class="intro">
-      <p>Congratulations! Your project <span class="project-name">app</span> is
-        ready and running.</p>
-      <p>This is a static welcome page located at <code>resources/app/index.html</code>
-        in the project directory. Remove or replace it when you start developing.
-        If you remove the index page entirely, be sure to change the <code>:aliases</code>
-        map in <code>app.system/base-config</code>.
-    </div>
-    <div class="profiles">
-      <h2>Template profiles used:</h2>
-      <dl>
-        <dt>+example</dt>
-        <dd>Adds an example endpoint at <a href="/example">/example</a>.</dd>
-        <dt>+site</dt>
-        <dd>Adds middleware and configuration suited for a user-facing website.</dd>
-      </dl>
-    </div>
-    
+    <div id="main-app-area"></div>
+    <script src="/js/compiled/demo_devcards.js" type="text/javascript"></script>
   </body>
 </html>

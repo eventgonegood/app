@@ -12,7 +12,11 @@
   ;no content to replace just grabbing the script tags
   )
 
-(html/deftemplate container "app/templates/container.html"  [title] 
+(def container (html/template "app/templates/container.html" [title content]
+    [:head :title] (html/content title)
+    [:section.stage] (html/substitute content)))
+
+(html/deftemplate container2 "app/templates/container.html"  [title] 
   [:head :title]  (html/content title))
 
 ;;config will contain the component items
@@ -20,7 +24,7 @@
   (context "/login" []
            (GET "/" []
                 (let [f (anti-forgery-field)]
-                  (container "hi")))
+                  (container "hi" "YO")))
            (GET "/success" []
                 "SUCCESS")
            (GET "/failure" []

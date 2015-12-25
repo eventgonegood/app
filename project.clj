@@ -5,31 +5,44 @@
   :dependencies [[buddy "0.8.3"]
                  [abengoa/clj-stripe "1.0.4"]
                  [cheshire "5.5.0"]
-                 [com.stuartsierra/component "0.3.0"]
+                 [com.stuartsierra/component "0.3.1"]
                  [compojure "1.4.0"]
+                 [devcards "0.2.1-2"]
                  [duct "0.5.6"]
                  [environ "1.0.1"]
                  [enlive "1.1.6"]
+                 [http-kit "2.1.19"]
                  [meta-merge "0.1.1"]
                  [org.clojure/clojure "1.7.0"]
-                 [org.postgresql/postgresql "9.4-1201-jdbc41"]
-                 [org.slf4j/slf4j-nop "1.7.12"]
+                 [org.clojure/clojurescript "1.7.170"]
+                 [cljsjs/react "0.14.3-0"]
+                 [cljsjs/react-dom "0.14.3-1"]
+                 [cljsjs/react-dom-server "0.14.3-0"]
+                 [org.clojure/data.json "0.2.6"]
+                 #_[org.omcljs/om "0.9.0"]
+                 [org.postgresql/postgresql "9.4.1207"]
+                 [org.slf4j/slf4j-nop "1.7.13"]
                  [org.webjars/normalize.css "3.0.2"]
+                 [prismatic/schema "1.0.4"]
                  [ragtime "0.5.2"]
+                 #_[reagent "0.5.1"]
                  [ring "1.4.0"]
                  [ring-jetty-component "0.3.0"]
                  [ring-webjars "0.1.1"]
                  [ring/ring-defaults "0.1.5"]
+                 [sablono "0.5.3"]
                  [yesql "0.5.1"]]
   :plugins [[lein-environ "1.0.1"]
-            [lein-ancient "0.6.8"]
-            [lein-cljfmt "0.3.0"]
-            [lein-marginalia "0.8.0"]
-            [lein-gen "0.2.2"]]
-  :generators [[duct/generators "0.5.6"]]
-  :duct {:ns-prefix app}
+            [jonase/eastwood "0.2.3"]
+            [lein-figwheel "0.5.0-2" :exclusions  [org.clojure/clojure]]
+            [lein-ancient "0.6.8" :exclusions  [org.clojure/clojure]]
+            [lein-cljsbuild "1.1.2"]
+            [lein-cljfmt "0.3.0" :exclusions  [org.clojure/clojure]]
+            [lein-marginalia "0.8.0"]]
   :main ^:skip-aot app.main
   :target-path "target/%s/"
+  :clean-targets ^{:protect false}  ["resources/app/public/js/compiled"
+                                     "target"]
   :aliases {"gen"   ["generate"]
             "setup" ["do" ["generate" "locals"]]}
   :profiles
@@ -45,4 +58,32 @@
                                   [kerodon "0.7.0"]]
                    :source-paths ["dev"]
                    :repl-options {:init-ns user}}
-   :project/test  {}})
+   :project/test  {}}
+
+  :cljsbuild  {
+               :builds  [{:id "devcards"
+                          :source-paths  ["src-cljs"]
+                          :figwheel  { :devcards true } ;; <- note this
+                          :compiler  { :main       "app.core"
+                                      :asset-path "js/compiled/devcards_out"
+                                      :output-to  "resources/app/public/js/compiled/demo_devcards_devcards.js"
+                                      :output-dir "resources/app/public/js/compiled/devcards_out"
+                                      :source-map-timestamp true}}
+                         {:id "dev"
+                          :source-paths  ["src-cljs"]
+                          :figwheel true
+                          :compiler  {:main       "app.core"
+                                      :asset-path "js/compiled/out"
+                                      :output-to  "resources/app/public/js/compiled/demo_devcards.js"
+                                      :output-dir "resources/app/public/js/compiled/out"
+                                      :source-map-timestamp true}}
+                         {:id "prod"
+                          :source-paths  ["src-cljs"]
+                          :compiler  {:main       "app.core"
+                                      :asset-path "js/compiled/out"
+                                      :output-to  "resources/app/public/js/compiled/demo_devcards.js"
+                                      :optimizations :advanced}}
+                         ]
+               }
+  :figwheel  {:http-server-root "app/public"
+              :css-dirs  ["resources/app/public/css"]})

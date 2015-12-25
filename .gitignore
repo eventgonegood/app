@@ -1,3 +1,4 @@
+.DS_Store
 /target
 /classes
 /checkouts
@@ -13,3 +14,4 @@ dev/local.clj
 *.swo
 node_modules
 bundle.js
+figwheel_server.log

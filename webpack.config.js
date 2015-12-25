@@ -4,6 +4,9 @@ module.exports = {
         path: __dirname,
         filename: "./resources/app/public/bundle.js"
     },
+    resolve: {
+                 fallback: [__dirname + "/node_modules"]
+             },
     module: {
                 loaders: [
                 { test: /\.css$/, loader: "style!css!postcss" }

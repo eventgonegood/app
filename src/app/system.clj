@@ -11,6 +11,7 @@
             [ring.middleware.webjars :refer [wrap-webjars]]
             [app.endpoint.example :refer [example-endpoint]]
             [app.endpoint.login :refer [login-endpoint]]
+            [app.endpoint.leaderboard :refer [leaderboard-endpoint]]
             [app.migrate :refer [new-ragtime]]
             [clojure.pprint :refer [pprint]]
             [app.accounts :refer [new-accounts]]))
@@ -34,9 +35,10 @@
          :http (jetty-server (:http config))
          :example (endpoint-component example-endpoint)
          :login (endpoint-component login-endpoint)
+         :leaderboard (endpoint-component leaderboard-endpoint)
          :accounts (new-accounts connection))
         (component/system-using
          {:http [:app]
-          :app  [:example :login]
+          :app  [:example :login :leaderboard]
           :accounts []
           :example [:accounts]}))))
