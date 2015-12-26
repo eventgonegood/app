@@ -62,27 +62,13 @@
 
   :cljsbuild  {
                :builds  [{:id "devcards"
-                          :source-paths  ["src-cljs"]
+                          :source-paths  ["src"]
                           :figwheel  { :devcards true } ;; <- note this
-                          :compiler  { :main       "app.core"
+                          :compiler  { :main       "app.dev-cards.core"
                                       :asset-path "js/compiled/devcards_out"
                                       :output-to  "resources/app/public/js/compiled/demo_devcards_devcards.js"
                                       :output-dir "resources/app/public/js/compiled/devcards_out"
                                       :source-map-timestamp true}}
-                         {:id "dev"
-                          :source-paths  ["src-cljs"]
-                          :figwheel true
-                          :compiler  {:main       "app.core"
-                                      :asset-path "js/compiled/out"
-                                      :output-to  "resources/app/public/js/compiled/demo_devcards.js"
-                                      :output-dir "resources/app/public/js/compiled/out"
-                                      :source-map-timestamp true}}
-                         {:id "prod"
-                          :source-paths  ["src-cljs"]
-                          :compiler  {:main       "app.core"
-                                      :asset-path "js/compiled/out"
-                                      :output-to  "resources/app/public/js/compiled/demo_devcards.js"
-                                      :optimizations :advanced}}
                          ]
                }
   :figwheel  {:http-server-root "app/public"

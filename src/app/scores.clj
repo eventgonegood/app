@@ -84,4 +84,3 @@
             next-index (inc index)
             choice (ev last-item cur last-ev index)]
         (recur (conj acc choice) next-index cur choice (rest scores))))))
-

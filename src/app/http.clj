@@ -1,7 +1,7 @@
 (ns app.http
   (:require 
-    [org.httpkit.server :as server]
-    [com.stuartsierra.component :as component]))
+   [org.httpkit.server :as server]
+   [com.stuartsierra.component :as component]))
 
 (defrecord HttpServer  [port server ring-app]
   component/Lifecycle 
@@ -27,4 +27,3 @@
 
 (defn new-http  [http-config]
   (map->HttpServer http-config))
-
