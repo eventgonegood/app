@@ -1,5 +1,7 @@
 (ns app.dev-cards.core
   (:require
+    [om.core :as om :include-macros true]
+    [app.dev-cards.leaderboard]
     [sablono.core :as sab :include-macros true])
   (:require-macros
     [devcards.core :as dc :refer  [defcard deftest]]))
@@ -9,12 +11,14 @@
 (defn abc  [namey]
   [:div  [:strong namey]])
 
-(defcard first-card
-  (sab/html  (abc "linda")))
+(defcard unscored
+  (sab/html [:table
+             [:tbody 
+             [:tr
+              [:td "hi"]
+              ]]
+             ]))
 
-(defcard second-card
-  (sab/html  [:div
-              [:h1 "Linda is your first devcard!"]]))
 
 (defn main  []
   ;; conditionally start the app based on wether the #main-app-area

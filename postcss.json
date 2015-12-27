@@ -1,0 +1,10 @@
+{
+    "use": ["autoprefixer", "precss","lost"],
+    "input": "resources/app/public/css/style.css",
+    "output": "resources/app/public/css/generated.css",
+    "autoprefixer": {
+        "browsers": "> 5%"
+    },
+    "precss": {},
+    "lost" : {}
+}

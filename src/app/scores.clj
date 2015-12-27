@@ -2,36 +2,37 @@
                          [clojure.set :as set]))
 
 (defn extract-scores 
-  "Given a sequence of scores will extract a vector of values"
-  [scores index]
-  (let [scores-to-rank (map #(get-in % [:scores index]) scores)
+  "Given a competition will extract a vector of values from an event key"
+  [competition event-key]
+  (let [scores-to-rank (map #(get-in % [:scores event-key]) (vals (:competitors  competition)))
         score-values (map :value scores-to-rank)]
     score-values))
 
 ; :time sorts <
 ; :task sorts >
 ; nil value is always last
-; expecting [22 23 24]
 (defn rank-scores 
-  "Given a vector of scores and an event definition will return a dense 
+  "Given a competition and an event definition key will return a dense 
    ranked value in the form of a dictionary {score rank, score rank}"
-  [scores-to-rank event-def] 
-  ;sort-by key-fn comparison collection
-  (let [sorter (if (= :time (:priority event-def)) < >)
+  [competition event-def-key] 
+  (let [event-def (get-in competition [:events event-def-key])
+        sorter (if (= :time (:priority event-def)) < >)
+        scores-to-rank (extract-scores competition event-def-key)
         sorted-values (sort sorter scores-to-rank)
         distinct-sorted-values (distinct sorted-values)
         rank-tuples (map vector distinct-sorted-values (iterate inc 1))]
-    (into {} (vec rank-tuples))))
+    (into {} rank-tuples)))
 
 (defn apply-rank 
-  "Given an athletes scores, the index of the event, and the rankings
+  "Given an athlete entry, the index of the event, and the rankings
    this will assoc :rank onto the value object.
-   {:value 22} -> {:value 22 :rank 4}"
-  [score index ranked-scores]
-  (let [v (get-in score [:scores index :value])
+   score  {:name 'dru' :scores {1 {:value 22 }}}
+   output {:name 'dru' :scores {1 {:value 22 :rank 4 }}}"
+  [athlete index ranked-scores]
+  (let [v (get-in athlete [:scores index :value])
         r (get ranked-scores v)]
     ;need to assoc in :scores index
-    (assoc-in score [:scores index :rank] r)))
+    (assoc-in athlete [:scores index :rank] r)))
 
 (defn sparse-rank 
   "Sparse rank returns ranked scores in the ranking format of [1 1 3 4 4 6]"
@@ -41,19 +42,19 @@
 
 (defn dense-rank 
   "Dense rank returnes ranked scores in the ranking format of [1 1 2 3 3 4]"
-  [scores event-defs]
-  (vec 
-   (map-indexed (fn [i event-def]
-                  (let [priority (:priority event-def)
-                        score-vals (extract-scores scores i)
-                        ranks (rank-scores score-vals event-def)]
-                    (mapv (fn [score]
-                            (apply-rank score i ranks)) scores))) event-defs)))
+  [competition]
+  (let [events (:events competition)]
+    (vec 
+     (map (fn [event-def-key]
+            (let [event-def (get-in competition [:events event-def-key]) 
+                  ranks (rank-scores competition event-def-key)]
+              (mapv (fn [competitor]
+                      (let [c (get competitor 1)]
+                        (apply-rank c event-def-key ranks))) (:competitors competition)))) (keys  events)))))
 
 ;values are the identity
 ;extract the values
 ;rank them, then assign the rank back to the value
-
 (defn merge-scores [a b]
   (let [a-scores (:scores a)
         b-scores (:scores b)
