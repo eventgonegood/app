@@ -7,16 +7,13 @@
             [app.endpoint.login :refer [container]]
             [clojure.java.io :as io]))
 
-
 (html/defsnippet leaderboard-html "app/templates/leaderboard.html" [:table] []
   ;no content - YET - just grab the table
-  )
-
-
+)
 
 ;;config will contain the component items
 (defn leaderboard-endpoint [config]
   (context "/leaderboard" []
-           (GET "/" []
-                (container "hi" (leaderboard-html)))))
+    (GET "/" []
+      (container "hi" (leaderboard-html)))))
 

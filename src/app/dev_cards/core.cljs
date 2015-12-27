@@ -1,10 +1,10 @@
 (ns app.dev-cards.core
   (:require
-    [om.core :as om :include-macros true]
-    [app.dev-cards.leaderboard]
-    [sablono.core :as sab :include-macros true])
+   [om.core :as om :include-macros true]
+   [app.dev-cards.leaderboard]
+   [sablono.core :as sab :include-macros true])
   (:require-macros
-    [devcards.core :as dc :refer  [defcard deftest]]))
+   [devcards.core :as dc :refer  [defcard deftest]]))
 
 (enable-console-print!)
 
@@ -14,11 +14,8 @@
 (defcard unscored
   (sab/html [:table
              [:tbody 
-             [:tr
-              [:td "hi"]
-              ]]
-             ]))
-
+              [:tr
+               [:td "hi"]]]]))
 
 (defn main  []
   ;; conditionally start the app based on wether the #main-app-area
@@ -30,6 +27,5 @@
 
 ;; remember to run lein figwheel and then browse to
 ;; http://localhost:3449/cards.html
-
 
 
