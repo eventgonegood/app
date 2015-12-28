@@ -475,3 +475,17 @@ td.event > div:nth-child(2) {
         visibility: collapse;
     }
 }
+.score-entry {
+    border: 1px solid #cbcbcb;
+    padding: 5px;
+}
+.score-entry label {
+    color: #cbcbcb;
+}
+.score-entry input {}
+.score-entry button {
+    color: #fff;
+    background: #bcb;
+    outline: none;
+    border: none;
+}

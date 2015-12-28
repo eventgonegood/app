@@ -1,12 +1,14 @@
-(ns app.scores (:require [clojure.pprint :refer [pprint]]
-                         [clojure.set :as set]))
+(ns app.scoring
+  (:require [clojure.pprint :refer [pprint]]
+            [com.rpl.specter :as s]
+            [app.competitions :as c]
+            [clojure.set :as set]))
 
 (defn extract-scores 
   "Given a competition will extract a vector of values from an event key"
   [competition event-key]
-  (let [scores-to-rank (map #(get-in % [:scores event-key]) (vals (:competitors  competition)))
-        score-values (map :value scores-to-rank)]
-    score-values))
+  (let [scores (s/select [:competitors s/ALL :scores (s/keypath event-key) :value] competition)]
+    scores))
 
 ; :time sorts <
 ; :task sorts >
@@ -24,48 +26,32 @@
     (into {} rank-tuples)))
 
 (defn apply-rank 
-  "Given an athlete entry, the index of the event, and the rankings
+  "Given an competitor entry, the index of the event, and the rankings
    this will assoc :rank onto the value object.
    score  {:name 'dru' :scores {1 {:value 22 }}}
    output {:name 'dru' :scores {1 {:value 22 :rank 4 }}}"
-  [athlete index ranked-scores]
-  (let [v (get-in athlete [:scores index :value])
+  [competitor event-key ranked-scores]
+  (let [v (get-in competitor [:scores event-key :value])
         r (get ranked-scores v)]
     ;need to assoc in :scores index
-    (assoc-in athlete [:scores index :rank] r)))
+    (assoc-in competitor [:scores event-key :rank] r)))
 
 (defn sparse-rank 
   "Sparse rank returns ranked scores in the ranking format of [1 1 3 4 4 6]"
   [event-defs scores]
   (let [entry-count (count scores)
-        event-count (count event-defs)]))
+        event-count (count event-defs)]
+    "sparse"))
 
 (defn dense-rank 
   "Dense rank returnes ranked scores in the ranking format of [1 1 2 3 3 4]"
   [competition]
   (let [events (:events competition)]
-    (vec 
-     (map (fn [event-def-key]
-            (let [event-def (get-in competition [:events event-def-key]) 
-                  ranks (rank-scores competition event-def-key)]
+     (mapv (fn [event-def]
+            (let [ranked-scores (rank-scores competition (:id event-def))]
               (mapv (fn [competitor]
-                      (let [c (get competitor 1)]
-                        (apply-rank c event-def-key ranks))) (:competitors competition)))) (keys  events)))))
-
-;values are the identity
-;extract the values
-;rank them, then assign the rank back to the value
-(defn merge-scores [a b]
-  (let [a-scores (:scores a)
-        b-scores (:scores b)
-        merged (into [] (set/join a-scores b-scores))]
-    (assoc a :scores merged)))
-
-(defn xxx [a]
-  (apply merge-scores a))
-
-(map xxx (list (list {:name "A" :scores [{:v 2 :r 1} {:v 3} {:v 4}]} {:name "A" :scores [{:v 2} {:v 3 :r 2} {:v 4}]}) 
-               #_(list {:name "B" :scores [{:v 3 :r 2} {:v 4}]} {:name "B" :scores [{:v 3} {:v 4 :r 1}]})))
+                        (apply-rank competitor (:id event-def) ranked-scores)) 
+                        (:competitors competition)))) events)))
 
 (defn ev [last-actual-value current-actual-value last-ev-value index]
   (if (nil? current-actual-value)

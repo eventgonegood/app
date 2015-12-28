@@ -1,55 +1,28 @@
 (ns app.scores-tests
-  (:require [app.scores :as s]
+  (:require [clojure.test :refer :all] 
+    [app.scoring :as s]
             [clojure.pprint :refer [pprint]]
-            [app.leaderboard :as l]
-            [clojure.test :refer :all]))
-
-(def competition (-> 
-                  (l/new-competition "Fittest Games" [])
-                  (l/add-competitor (l/new-competitor "Jeff Vanlandingham" "CrossFit Jaakarhu")) ;1
-                  (l/add-competitor (l/new-competitor "Reid Reagan" "CrossFit Jaakarhu")) ;2
-                  (l/add-competitor (l/new-competitor "Albert Leyva" "CrossFit Dallas Central")) ;3
-                  (l/add-competitor (l/new-competitor "Jeremy Kampen" "CrossFit Jaakarhu")) ;4
-
-                  (l/add-event (l/new-event "Fran" :time)) ;1
-                  (l/add-event (l/new-event "Cindy" :task)) ;2
-
-                  ;athlete-id event-id
-                  (l/add-score 1 1 {:value 20 :uom :sec})
-                  (l/add-score 2 1 {:value 21 :uom :sec})
-                  (l/add-score 3 1 {:value 22 :uom :sec})
-                  (l/add-score 4 1 {:value 23 :uom :sec})
-
-                  (l/add-score 1 2 {:value 20 :uom :reps})
-                  (l/add-score 2 2 {:value 21 :uom :reps})
-                  (l/add-score 3 2 {:value 22 :uom :reps})
-                  (l/add-score 4 2 {:value 23 :uom :reps})))
+            [app.competitions :as c]))
 
 (deftest can-extract-scores
-  (let [extraction (s/extract-scores competition 1)]
+  (let [extraction (s/extract-scores c/a-competition 1)]
     (is (= extraction [20 21 22 23]))))
 
 (deftest can-rank-scores-time
-  (let [ranked (s/rank-scores competition 1)]
+  (let [ranked (s/rank-scores c/a-competition 1)]
     (is (= {20 1, 21 2, 22 3, 23 4} ranked))))
 
 (deftest can-rank-scores-task
-  (let [ranked (s/rank-scores competition 2)]
+  (let [ranked (s/rank-scores c/a-competition 2)]
     (is (= {20 4, 21 3, 22 2, 23 1} ranked))))
 
 (deftest can-apply-rank
-  (let [jeff (get-in competition [:competitors 1])
+  (let [jeff (get-in c/a-competition [:competitors 0])
         r (s/apply-rank jeff 1 {20 5})]
     (is (= 5 (get-in r [:scores 1 :rank])))))
 
-(deftest can-rank-scores-task
-  (let [scores [20 21 22 23]
-        ed (l/new-event "Fran" :task) ;smaller is better
-        ranked (s/rank-scores scores ed)]
-    (is (= {20 4, 21 3, 22 2, 23 1} ranked))))
-
 (deftest dense-ranks
-  (let [r (s/dense-rank competition)]
+  (let [r (s/dense-rank c/a-competition)]
     (pprint r)
     (is  (= "Jeff Vanlandingham" (get-in r [0 0 :name])))))
 

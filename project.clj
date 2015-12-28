@@ -5,6 +5,7 @@
   :dependencies [[buddy "0.8.3"]
                  [abengoa/clj-stripe "1.0.4"]
                  [cheshire "5.5.0"]
+                 [com.rpl/specter "0.9.0"]
                  [com.stuartsierra/component "0.3.1"]
                  [compojure "1.4.0"]
                  [devcards "0.2.1-2"]

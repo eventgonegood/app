@@ -1,16 +1,16 @@
 (ns app.payments
   (:require 
-    [clj-stripe.util :as util]
-    [clj-stripe.common :as common]
-    [clj-stripe.plans :as plans]
-    [clj-stripe.coupons :as coupons]
-    [clj-stripe.charges :as charges]
-    [clj-stripe.cards :as cards]
-    [clj-stripe.subscriptions :as subscriptions]
-    [clj-stripe.customers :as customers]
-    [clj-stripe.invoices :as invoices]
-    [clj-stripe.invoiceitems :as invoiceitems]
-    [com.stuartsierra.component :as component]))
+   [clj-stripe.util :as util]
+   [clj-stripe.common :as common]
+   [clj-stripe.plans :as plans]
+   [clj-stripe.coupons :as coupons]
+   [clj-stripe.charges :as charges]
+   [clj-stripe.cards :as cards]
+   [clj-stripe.subscriptions :as subscriptions]
+   [clj-stripe.customers :as customers]
+   [clj-stripe.invoices :as invoices]
+   [clj-stripe.invoiceitems :as invoiceitems]
+   [com.stuartsierra.component :as component]))
 
 (defrecord Payments  [secret-key public-key db]
   ;; Implement the Lifecycle protocol
@@ -37,12 +37,11 @@
 (defn create-customer  [payments the-identity plan]
   (common/with-token  (:secret-key payments)
     (common/execute 
-      (customers/create-customer 
-        (customers/email  (:username the-identity))))))
+     (customers/create-customer 
+      (customers/email  (:username the-identity))))))
 
 (defn register-plans  [payments]
   (common/with-token  (:secret-key payments)
     (common/execute  (plans/create-plan "plan1"  (common/money-quantity 500 "usd")  (plans/monthly) "Starter"))
     (common/execute  (plans/create-plan "plan2"  (common/money-quantity 1000 "usd")  (plans/monthly) "Professional"))))
-
 

@@ -2,6 +2,7 @@
     "use": ["autoprefixer", "precss","lost"],
     "input": "resources/app/public/css/style.css",
     "output": "resources/app/public/css/generated.css",
+    "local-plugins":true,
     "autoprefixer": {
         "browsers": "> 5%"
     },

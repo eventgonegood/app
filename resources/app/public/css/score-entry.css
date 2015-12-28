@@ -1,0 +1,19 @@
+.score-entry {
+  border:1px solid #cbcbcb;
+  padding: 5px;
+
+  label {
+    color: #cbcbcb;
+  }
+
+  input {
+
+  }
+
+  button {
+    color: #fff;
+    background: #bcb;
+    outline: none;
+    border: none;
+  }
+}
