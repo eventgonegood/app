@@ -476,16 +476,37 @@ td.event > div:nth-child(2) {
     }
 }
 .score-entry {
+    display: flex;
+    flex-direction: row;
+}
+.score-entry .input {
     border: 1px solid #cbcbcb;
     padding: 5px;
+    border-radius: 3px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
 }
 .score-entry label {
     color: #cbcbcb;
+    font-size: 12px;
 }
-.score-entry input {}
+.score-entry input {
+    font-size: 16px;
+    box-shadow: inset 0 0 0 #fff;
+    border: 1px solid #fff;
+    color: #555;
+}
+.score-entry span {
+    padding-right: 1rem;
+}
 .score-entry button {
+    font-size: 12px;
+    padding-top: 8px;
     color: #fff;
     background: #bcb;
     outline: none;
     border: none;
+    border-radius: 3px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
 }
