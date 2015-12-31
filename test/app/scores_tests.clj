@@ -1,6 +1,6 @@
 (ns app.scores-tests
   (:require [clojure.test :refer :all] 
-    [app.scoring :as s]
+            [app.scoring :as s]
             [clojure.pprint :refer [pprint]]
             [app.competitions :as c]))
 

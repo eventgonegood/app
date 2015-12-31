@@ -1,8 +1,8 @@
-(ns app.endpoint.example
+(ns app.endpoints.example
   (:require [compojure.core :refer :all]
             [cheshire.core :refer :all]
             [clojure.pprint :refer [pprint]]
-            [app.accounts :as act]
+            [app.accounts.organizations :as act]
             [clojure.java.io :as io]))
 
 ;;config will contain the component items

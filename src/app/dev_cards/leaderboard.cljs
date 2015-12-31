@@ -6,8 +6,7 @@
    [sablono.core :as sab :include-macros true])
   (:require-macros
    [devcards.core :as dc :refer  [defcard deftest]]
-   [cljs.test :refer [is testing async]]
-   ))
+   [cljs.test :refer [is testing async]]))
 
 (defn build-leaderboard [])
 
@@ -21,67 +20,47 @@
                 [:th "bill"]
                 [:th "bill"]
                 (for [e (:events data)]
-                  
-                [:th {:class "event"} (:name e)]  
-                  )
-                ]]
+
+                  [:th {:class "event"} (:name e)])]]
               [:tbody 
                (for [c (:competitors data)]
-               [:tr
-                [:td {:class "rank"} 
-                 [:div "1"]
-                 [:div "22pts"]]
-                [:td {:class "athlete"}
-                 [:div (:name c)]
-                 [:div (:gym c)]
-                ]
-                (for [ s (vals  (:scores c))]
-                  [:td {:class "event"}
-                   (:value s)
-                   ]
-                  )
-                ])]])))
+                 [:tr
+                  [:td {:class "rank"} 
+                   [:div "1"]
+                   [:div "22pts"]]
+                  [:td {:class "athlete"}
+                   [:div (:name c)]
+                   [:div (:gym c)]]
+                  (for [s (vals  (:scores c))]
+                    [:td {:class "event"}
+                     (:value s)])])]])))
 
 (defn score-entry-widget [data]
   (om/component
-    (sab/html [:div {:class "score-entry"}
-                [:div {:class "input"}
-                 
+   (sab/html [:div {:class "score-entry"}
+              [:div {:class "input"}
+
                (for [m (:measures data)]
-                   [:label 
-                     [:input { :type "text"}] 
-                     [:span (:name m)]
-                   ]
-                  )
-                 ]
-                 [:button "Submit"]
-               ])))
+                 [:label 
+                  [:input {:type "text"}] 
+                  [:span (:name m)]])]
+              [:button "Submit"]])))
 
 (def score (get-in c/a-competition [:competitors 0]))
 
 (defcard a-leaderboard
   (dc/om-root leaderboard-widget)
   c/a-competition
-  {:inspect-data true}
-  )
-
+  {:inspect-data true})
 
 (defcard one-score-entry
   (dc/om-root score-entry-widget)
-  {:measures [{
-               :name "Reps"
-               }
-              ]}
-  )
+  {:measures [{:name "Reps"}]})
 
 (defcard two-score-entry
   (dc/om-root score-entry-widget)
-  {:measures [{
-               :name "Sets"
-               }
-              {:name "Reps"}
-              ]}
-  )
+  {:measures [{:name "Sets"}
+              {:name "Reps"}]})
 
 (deftest bob-bill
   "##Tests"

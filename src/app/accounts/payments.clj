@@ -1,4 +1,4 @@
-(ns app.payments
+(ns app.accounts.payments
   (:require 
    [clj-stripe.util :as util]
    [clj-stripe.common :as common]

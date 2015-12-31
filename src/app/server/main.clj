@@ -1,11 +1,11 @@
-(ns app.main
+(ns app.server.main
   (:gen-class)
   (:require [clojure.java.io :as io]
             [com.stuartsierra.component :as component]
             [duct.middleware.errors :refer [wrap-hide-errors]]
             [meta-merge.core :refer [meta-merge]]
-            [app.config :as config]
-            [app.system :refer [new-system]]))
+            [app.server.config :as config]
+            [app.server.system :refer [new-system]]))
 
 (def prod-config
   {;:app {:middleware     [[wrap-hide-errors :internal-error]]

@@ -1,4 +1,4 @@
-(ns app.config
+(ns app.server.config
   (:require [environ.core :refer [env]]
             [clojure.walk :refer [postwalk]]))
 

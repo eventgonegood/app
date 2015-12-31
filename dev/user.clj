@@ -8,8 +8,8 @@
             [meta-merge.core :refer [meta-merge]]
             [reloaded.repl :refer [system init start stop go reset]]
             [ring.middleware.stacktrace :refer [wrap-stacktrace]]
-            [app.config :as config]
-            [app.system :as system]))
+            [app.server.config :as config]
+            [app.server.system :as system]))
 
 (def dev-config
   {:app {:middleware [wrap-stacktrace]}})

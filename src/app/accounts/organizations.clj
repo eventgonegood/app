@@ -1,4 +1,4 @@
-(ns app.accounts
+(ns app.accounts.organizations
   (:refer-clojure :exclude [find])
   (:require 
    [com.stuartsierra.component :as component]

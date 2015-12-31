@@ -1,9 +1,9 @@
-(ns app.endpoint.login
+(ns app.endpoints.login
   (:require [compojure.core :refer :all]
             [cheshire.core :refer :all]
             [ring.util.response :refer [redirect]]
             [clojure.pprint :refer [pprint]]
-            [app.accounts :as act]
+            [app.accounts.organizations :as act]
             [net.cgrand.enlive-html :as html]
             [ring.util.anti-forgery :refer [anti-forgery-field]]
             [clojure.java.io :as io]))

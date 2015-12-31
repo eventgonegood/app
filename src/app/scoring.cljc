@@ -1,8 +1,6 @@
 (ns app.scoring
-  (:require [clojure.pprint :refer [pprint]]
-            [com.rpl.specter :as s]
-            [app.competitions :as c]
-            [clojure.set :as set]))
+  (:require [com.rpl.specter :as s]
+            [app.competitions :as c]))
 
 (defn extract-scores 
   "Given a competition will extract a vector of values from an event key"

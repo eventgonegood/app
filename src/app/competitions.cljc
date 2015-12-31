@@ -1,10 +1,20 @@
 (ns app.competitions
 (:require [com.rpl.specter :as s]
+          [app.util :refer [by-id]]
           ))
 
-(defn new-event [name priority]
+(defn new-division [name description]
+  {
+   :id 0
+   :name name
+   :description description
+   }
+  )
+
+(defn new-event [name priority division]
   {:id 0
    :name name
+   :division-id division
    :priority priority
    }
   )
@@ -13,14 +23,16 @@
   {
    :name name
    :competitors []
+   :divisions []
    :events []
    }
   )
 
-(defn new-competitor [name gym]
+(defn new-competitor [name gym division]
   {:id 0
    :name name
    :gym gym 
+   :division-id division
    :scores {}})
 
 (defn add-score [competition competitor-id event-id score]
@@ -28,6 +40,12 @@
                #(assoc % event-id score)
                competition
                ))
+
+(defn add-division [competition division]
+  (let [ids (s/select [:divisions s/ALL :id] competition)
+        max-key (if (empty? ids) 0 (apply max ids))
+        division-with-id (assoc division :id (inc max-key))]
+    (update-in competition [:divisions] #(conj % division-with-id))))
 
 (defn add-event [competition event-def]
   (let [ids (s/select [:events s/ALL :id] competition)
@@ -42,21 +60,21 @@
         competitor-with-id (assoc competitor :id (inc max-key))]
     (update-in competition [:competitors] #(conj % competitor-with-id))))
 
-(defn by-id [id] (fn [v]
-                  (= (:id v) id)))
-
 (defn get-event [competition event-key]
   (first  (s/select [:events s/ALL (by-id event-key)] competition)))
 
 (def a-competition (-> 
                   (new-competition "Fittest Games")
-                  (add-competitor (new-competitor "Jeff Vanlandingham" "CrossFit Jaakarhu")) ;1
-                  (add-competitor (new-competitor "Reid Reagan" "CrossFit Jaakarhu")) ;2
-                  (add-competitor (new-competitor "Albert Leyva" "CrossFit Dallas Central")) ;3
-                  (add-competitor (new-competitor "Jeremy Kampen" "CrossFit Jaakarhu")) ;4
 
-                  (add-event (new-event "Fran" :time)) ;1
-                  (add-event (new-event "Cindy" :task)) ;2
+                  (add-division (new-division "Mens Rx" "")) ;1
+
+                  (add-competitor (new-competitor "Jeff Vanlandingham" "CrossFit Jaakarhu" 1)) ;1
+                  (add-competitor (new-competitor "Reid Reagan" "CrossFit Jaakarhu" 1)) ;2
+                  (add-competitor (new-competitor "Albert Leyva" "CrossFit Dallas Central" 1)) ;3
+                  (add-competitor (new-competitor "Jeremy Kampen" "CrossFit Jaakarhu" 1)) ;4
+
+                  (add-event (new-event "Fran" :time 1)) ;1
+                  (add-event (new-event "Cindy" :task 1)) ;2
 
                   ;athlete-id event-id
                   (add-score 1 1 {:value 20 :uom :sec})
@@ -68,4 +86,4 @@
                   (add-score 2 2 {:value 21 :uom :reps})
                   (add-score 3 2 {:value 22 :uom :reps})
                   (add-score 4 2 {:value 23 :uom :reps})))
-#_(pprint  a-competition)
+(clojure.pprint/pprint a-competition)

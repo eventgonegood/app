@@ -1,9 +1,9 @@
-(ns app.http
+(ns app.server.http
   (:require 
    [org.httpkit.server :as server]
    [com.stuartsierra.component :as component]))
 
-(defrecord HttpServer  [port server ring-app]
+(defrecord HttpServer  [port server app]
   component/Lifecycle 
 
   (start  [component]
@@ -12,8 +12,7 @@
     ;; and start it running. For example, connect to a
     ;; database, create thread pools, or initialize shared
     ;; state.
-
-    (let  [h  (:handler ring-app)
+    (let  [h  (:handler app)
            s  (server/run-server h  {:port port})]
       (assoc component :server s)))
 

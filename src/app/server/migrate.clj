@@ -1,6 +1,6 @@
-(ns app.migrate
+(ns app.server.migrate
   (:require  [ragtime.jdbc :as jdbc]
-             [app.config :as config]
+             [app.server.config :as config]
              [ragtime.core :as core]
              [ragtime.strategy :as strategy]
              [com.stuartsierra.component :as component]

@@ -39,7 +39,7 @@
             [lein-cljsbuild "1.1.2"]
             [lein-cljfmt "0.3.0" :exclusions  [org.clojure/clojure]]
             [lein-marginalia "0.8.0"]]
-  :main ^:skip-aot app.main
+  :main ^:skip-aot app.server.main
   :target-path "target/%s/"
   :clean-targets ^{:protect false}  ["resources/app/public/js/compiled"
                                      "target"]
