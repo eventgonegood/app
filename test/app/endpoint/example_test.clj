@@ -3,7 +3,7 @@
             [clojure.test :refer :all]
             [kerodon.core :refer :all]
             [kerodon.test :refer :all]
-            [app.endpoint.example :as example]))
+            [app.endpoints.example :as example]))
 
 (def handler
   (example/example-endpoint {}))

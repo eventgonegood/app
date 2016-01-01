@@ -69,7 +69,18 @@
                                       :output-to  "resources/app/public/js/compiled/demo_devcards_devcards.js"
                                       :output-dir "resources/app/public/js/compiled/devcards_out"
                                       :source-map-timestamp true}}
-                         ]
+                         {:id "score-entry"
+                          :source-paths ["src"]
+                          :figwheel {:devcards true} ;; <- note this
+                          :compiler { :main "app.client.score-entry"
+                                     :asset-path "js/compiled/score_entry_out"
+                                     :output-to "resources/app/public/js/compiled/score_entry.js"
+                                     :output-dir "resources/app/public/js/compiled/score_entry_out"
+                                     :source-map-timestamp true
+                                     
+                                     }
+                          
+                          }]
                }
   :figwheel  {:http-server-root "app/public"
               :css-dirs  ["resources/app/public/css"]})

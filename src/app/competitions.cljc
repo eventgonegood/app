@@ -86,4 +86,3 @@
                   (add-score 2 2 {:value 21 :uom :reps})
                   (add-score 3 2 {:value 22 :uom :reps})
                   (add-score 4 2 {:value 23 :uom :reps})))
-(clojure.pprint/pprint a-competition)
