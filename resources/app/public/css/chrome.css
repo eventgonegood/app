@@ -1,0 +1,7 @@
+#chrome {
+  header {
+    background: $header-background;
+    color: $header-color;
+    padding:0.5rem;
+  }
+}

@@ -14,34 +14,22 @@
      [:th "Overall"]
      [:th "Athlete"]
      (for [e (:events competition)]
-       [:th {:class "event"} (:name e)])
-     ]
-    ]
+       [:th {:class "event"} (:name e)])]]
    [:tbody
     (for [c (:competitors competition)]
-    [:tr
-     [:td {:class "rank"}
-      [:div "1"]
-      [:div "22pts"]
-      ]
-     [:td {:class "athlete"}
-      [:div (:name c)]
-      [:div (:gym c)]
-      ]
-     (for [s (vals (:scores c))]
-     [:td {:class "event"}
-      [:div "1"]
-      [:div
-       [:div "22 pts"]
-       [:div "5:22"]
-       ]
-      ])
-     ])
-    ]
-   ]
-)
-
-;;config will contain the component items
+      [:tr
+       [:td {:class "rank"}
+        [:div "1"]
+        [:div "22pts"]]
+       [:td {:class "athlete"}
+        [:div (:name c)]
+        [:div (:gym c)]]
+       (for [s (vals (:scores c))]
+         [:td {:class "event"}
+          [:div "1"]
+          [:div
+           [:div "22 pts"]
+           [:div "5:22"]]])])]]);;config will contain the component items
 (defn leaderboard-endpoint [config]
   (context "/leaderboard" []
     (GET "/" []

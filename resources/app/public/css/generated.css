@@ -4,7 +4,6 @@
  * 2. Prevent iOS and IE text size adjust after device orientation change,
  *    without disabling user zoom.
  */
-
 html {
     font-family: sans-serif;
     /* 1 */
@@ -16,7 +15,6 @@ html {
 /**
  * Remove default margin.
  */
-
 body {
     margin: 0;
 }
@@ -28,7 +26,6 @@ body {
  * and Firefox.
  * Correct `block` display not defined for `main` in IE 11.
  */
-
 article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
     display: block;
 }
@@ -36,7 +33,6 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
  * 1. Correct `inline-block` display not defined in IE 8/9.
  * 2. Normalize vertical alignment of `progress` in Chrome, Firefox, and Opera.
  */
-
 audio, canvas, progress, video {
     display: inline-block;
     /* 1 */
@@ -47,7 +43,6 @@ audio, canvas, progress, video {
  * Prevent modern browsers from displaying `audio` without controls.
  * Remove excess height in iOS 5 devices.
  */
-
 audio:not([controls]) {
     display: none;
     height: 0;
@@ -56,7 +51,6 @@ audio:not([controls]) {
  * Address `[hidden]` styling not present in IE 8/9/10.
  * Hide the `template` element in IE 8/9/10/11, Safari, and Firefox < 22.
  */
-
 [hidden], template {
     display: none;
 }
@@ -65,7 +59,6 @@ audio:not([controls]) {
 /**
  * Remove the gray background color from active links in IE 10.
  */
-
 a {
     background-color: transparent;
 }
@@ -73,7 +66,6 @@ a {
  * Improve readability of focused elements when they are also in an
  * active/hover state.
  */
-
 a:active, a:hover {
     outline: 0;
 }
@@ -82,21 +74,18 @@ a:active, a:hover {
 /**
  * Address styling not present in IE 8/9/10/11, Safari, and Chrome.
  */
-
 abbr[title] {
     border-bottom: 1px dotted;
 }
 /**
  * Address style set to `bolder` in Firefox 4+, Safari, and Chrome.
  */
-
 b, strong {
     font-weight: bold;
 }
 /**
  * Address styling not present in Safari and Chrome.
  */
-
 dfn {
     font-style: italic;
 }
@@ -104,7 +93,6 @@ dfn {
  * Address variable `h1` font-size and margin within `section` and `article`
  * contexts in Firefox 4+, Safari, and Chrome.
  */
-
 h1 {
     font-size: 2em;
     margin: 0.67em 0;
@@ -112,7 +100,6 @@ h1 {
 /**
  * Address styling not present in IE 8/9.
  */
-
 mark {
     background: #ff0;
     color: #000;
@@ -120,25 +107,21 @@ mark {
 /**
  * Address inconsistent and variable font size in all browsers.
  */
-
 small {
     font-size: 80%;
 }
 /**
  * Prevent `sub` and `sup` affecting `line-height` in all browsers.
  */
-
 sub, sup {
     font-size: 75%;
     line-height: 0;
     position: relative;
     vertical-align: baseline;
 }
-
 sup {
     top: -0.5em;
 }
-
 sub {
     bottom: -0.25em;
 }
@@ -147,14 +130,12 @@ sub {
 /**
  * Remove border when inside `a` element in IE 8/9/10.
  */
-
 img {
     border: 0;
 }
 /**
  * Correct overflow not hidden in IE 9/10/11.
  */
-
 svg:not(:root) {
     overflow: hidden;
 }
@@ -163,14 +144,12 @@ svg:not(:root) {
 /**
  * Address margin not present in IE 8/9 and Safari.
  */
-
 figure {
     margin: 1em 40px;
 }
 /**
  * Address differences between Firefox and other browsers.
  */
-
 hr {
     box-sizing: content-box;
     height: 0;
@@ -178,14 +157,12 @@ hr {
 /**
  * Contain overflow in all browsers.
  */
-
 pre {
     overflow: auto;
 }
 /**
  * Address odd `em`-unit font size rendering in all browsers.
  */
-
 code, kbd, pre, samp {
     font-family: monospace, monospace;
     font-size: 1em;
@@ -202,7 +179,6 @@ code, kbd, pre, samp {
  * 2. Correct font properties not being inherited.
  * 3. Address margins set differently in Firefox 4+, Safari, and Chrome.
  */
-
 button, input, optgroup, select, textarea {
     color: inherit;
     /* 1 */
@@ -214,7 +190,6 @@ button, input, optgroup, select, textarea {
 /**
  * Address `overflow` set to `hidden` in IE 8/9/10/11.
  */
-
 button {
     overflow: visible;
 }
@@ -224,7 +199,6 @@ button {
  * Correct `button` style inheritance in Firefox, IE 8/9/10/11, and Opera.
  * Correct `select` style inheritance in Firefox.
  */
-
 button, select {
     text-transform: none;
 }
@@ -235,7 +209,6 @@ button, select {
  * 3. Improve usability and consistency of cursor style between image-type
  *    `input` and others.
  */
-
 button, html input[type="button"], input[type="reset"], input[type="submit"] {
     -webkit-appearance: button;
     /* 2 */
@@ -245,14 +218,12 @@ button, html input[type="button"], input[type="reset"], input[type="submit"] {
 /**
  * Re-set default cursor for disabled elements.
  */
-
 button[disabled], html input[disabled] {
     cursor: default;
 }
 /**
  * Remove inner padding and border in Firefox 4+.
  */
-
 button::-moz-focus-inner, input::-moz-focus-inner {
     border: 0;
     padding: 0;
@@ -261,7 +232,6 @@ button::-moz-focus-inner, input::-moz-focus-inner {
  * Address Firefox 4+ setting `line-height` on `input` using `!important` in
  * the UA stylesheet.
  */
-
 input {
     line-height: normal;
 }
@@ -272,7 +242,6 @@ input {
  * 1. Address box sizing set to `content-box` in IE 8/9/10.
  * 2. Remove excess padding in IE 8/9/10.
  */
-
 input[type="checkbox"], input[type="radio"] {
     box-sizing: border-box;
     /* 1 */
@@ -284,7 +253,6 @@ input[type="checkbox"], input[type="radio"] {
  * `font-size` values of the `input`, it causes the cursor style of the
  * decrement button to change from `default` to `text`.
  */
-
 input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {
     height: auto;
 }
@@ -292,7 +260,6 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
  * 1. Address `appearance` set to `searchfield` in Safari and Chrome.
  * 2. Address `box-sizing` set to `border-box` in Safari and Chrome.
  */
-
 input[type="search"] {
     -webkit-appearance: textfield;
     /* 1 */
@@ -304,14 +271,12 @@ input[type="search"] {
  * Safari (but not Chrome) clips the cancel button when the search input has
  * padding (and `textfield` appearance).
  */
-
 input[type="search"]::-webkit-search-cancel-button, input[type="search"]::-webkit-search-decoration {
     -webkit-appearance: none;
 }
 /**
  * Define consistent border, margin, and padding.
  */
-
 fieldset {
     border: 1px solid #c0c0c0;
     margin: 0 2px;
@@ -321,7 +286,6 @@ fieldset {
  * 1. Correct `color` not being inherited in IE 8/9/10/11.
  * 2. Remove padding so people aren't caught out if they zero out fieldsets.
  */
-
 legend {
     border: 0;
     /* 1 */
@@ -331,7 +295,6 @@ legend {
 /**
  * Remove default vertical scrollbar in IE 8/9/10/11.
  */
-
 textarea {
     overflow: auto;
 }
@@ -339,7 +302,6 @@ textarea {
  * Don't inherit the `font-weight` (applied by a rule above).
  * NOTE: the default cannot safely be changed in Chrome and Safari on OS X.
  */
-
 optgroup {
     font-weight: bold;
 }
@@ -348,54 +310,23 @@ optgroup {
 /**
  * Remove most spacing between table cells.
  */
-
 table {
     border-collapse: collapse;
     border-spacing: 0;
 }
-
 td, th {
     padding: 0;
 }
+#chrome header {
+    background: #333333;
+    color: #fffefe;
+    padding: 0.5rem;
+}
 
 body {
-    margin: 0px;
     font-family: sans-serif;
 }
 
-section, header {
-    *zoom: 1;
-    max-width: 1140px;
-    margin-left: auto;
-    margin-right: auto;
-    *zoom: 1;
-}
-
-section:before, header:before {
-    content: '';
-    display: table;
-}
-
-section:after, header:after {
-    content: '';
-    display: table;
-    clear: both;
-}
-
-section:before, header:before {
-    content: '';
-    display: table;
-}
-
-section:after, header:after {
-    content: '';
-    display: table;
-    clear: both;
-}
-
-header {
-    background: #cbcbcb;
-}
 
 .leaderboard {
     border-spacing: 0;
@@ -404,9 +335,11 @@ header {
     width: 100%;
 }
 
+
 .leaderboard th {
     background: #cbcbcb;
 }
+
 
 .leaderboard th, .leaderboard td {
     padding: 0.5rem 1rem;
@@ -414,7 +347,9 @@ header {
     border-width: 0 0 1px;
 }
 
+
 td.rank {}
+
 
 td.rank div:nth-child(1) {
     height: 35px;
@@ -422,10 +357,12 @@ td.rank div:nth-child(1) {
     font-weight: bold;
 }
 
+
 td.rank div:nth-child(2) {
     font-size: 10pt;
     color: #cbcbcb;
 }
+
 
 td.athlete div:nth-child(1) {
     height: 35px;
@@ -435,10 +372,12 @@ td.athlete div:nth-child(1) {
     font-weight: bold;
 }
 
+
 td.athlete div:nth-child(2) {
     font-size: 10pt;
     color: #cbcbcb;
 }
+
 
 td.event > div:nth-child(1) {
     display: table-cell;
@@ -448,25 +387,27 @@ td.event > div:nth-child(1) {
     height: 35px;
 }
 
+
 td.event div:nth-child(2) div:nth-child(1), td.event div:nth-child(2) div:nth-child(2) {
     font-size: 10pt;
     color: #999;
 }
 
+
 td.event div:nth-child(2) div:nth-child(2) {
     color: #bbb;
 }
+
 
 td.event > div:nth-child(2) {
     float: right;
 }
 
-@media all and (max-width: 320px) {
 
+@media all and (max-width: 320px) {
     .leaderboard {
         width: 320px;
     }
-
     .leaderboard th.event, .leaderboard td.event {
         display: none;
         width: 0;
@@ -475,9 +416,24 @@ td.event > div:nth-child(2) {
         visibility: collapse;
     }
 }
-.score-entry {
+#score-entry {
     display: flex;
     flex-direction: row;
+}
+#score-entry #entry {
+    width: 300px;
+    padding: 1rem;
+}
+#score-entry #display {
+    flex-grow: 1;
+    background: #faa;
+    padding: 1rem;
+}
+#score-entry #unscored {}
+#score-entry #scored {}
+.score-entry {
+    flex-direction: row;
+    display: flex;
 }
 .score-entry .input {
     border: 1px solid #cbcbcb;
@@ -495,9 +451,12 @@ td.event > div:nth-child(2) {
     box-shadow: inset 0 0 0 #fff;
     border: 1px solid #fff;
     color: #555;
+    border-bottom: 1px dotted #ccc;
+    text-align: right;
 }
 .score-entry span {
     padding-right: 1rem;
+    padding-left: 0.5rem;
 }
 .score-entry button {
     font-size: 12px;

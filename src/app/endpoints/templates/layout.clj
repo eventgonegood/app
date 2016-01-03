@@ -1,26 +1,24 @@
 (ns app.endpoints.templates.layout
-  (:require [hiccup.page :refer [include-css html5 include-js]])
-  )
+  (:require [hiccup.page :refer [include-css html5 include-js]]))
 
 (defn head 
   "Builds out the title and adds javascript"
-  [title js]
+  [title]
   [:head
    [:meta {:charset "utf-8"}]
-   [:meta {:name "viewport" :content "width=device-width, initial-scale=1.0" }]
+   [:meta {:name "viewport" :content "width=device-width, initial-scale=1.0"}]
+   [:link {:rel "shortcut icon" :href "/favicon.png"}]
    [:title title]
-   (include-css "/css/generated.css") 
-   ]
-  )
+   (include-css "/css/generated.css")])
 
 (defn chrome [title body]
   (html5
-    (head title ["/js/compiled/score_entry.js"])
-    [:body
-     body
-     
-       (include-js "/js/compiled/score_entry.js")
-     ]
-    )  
-  )
+   (head title)
+   [:body
+    [:div {:id "chrome"}
+     [:header
+      [:img {:src "/header-logo.png" :height "18px" :width "18px"}]]
+     [:div {:id "stage"}
+      body]]
+    (include-js "/js/compiled/client.js")]))
 

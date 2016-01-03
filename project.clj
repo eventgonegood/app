@@ -44,6 +44,7 @@
   :clean-targets ^{:protect false}  ["resources/app/public/js/compiled"
                                      "target"]
   :aliases {"gen"   ["generate"]
+            "js"    ["do" "clean," "cljsbuild" "once"]
             "setup" ["do" ["generate" "locals"]]}
   :profiles
   {:dev  [:project/dev  :profiles/dev]
@@ -60,27 +61,20 @@
                    :repl-options {:init-ns user}}
    :project/test  {}}
 
-  :cljsbuild  {
-               :builds  [{:id "devcards"
+  :cljsbuild  {:builds  [{:id "devcards"
                           :source-paths  ["src"]
-                          :figwheel  { :devcards true } ;; <- note this
-                          :compiler  { :main       "app.dev-cards.core"
+                          :figwheel  {:devcards true} ;; <- note this
+                          :compiler  {:main       "app.dev-cards.core"
                                       :asset-path "js/compiled/devcards_out"
                                       :output-to  "resources/app/public/js/compiled/demo_devcards_devcards.js"
                                       :output-dir "resources/app/public/js/compiled/devcards_out"
                                       :source-map-timestamp true}}
                          {:id "score-entry"
                           :source-paths ["src"]
-                          :figwheel {:devcards true} ;; <- note this
-                          :compiler { :main "app.client.score-entry"
-                                     :asset-path "js/compiled/score_entry_out"
-                                     :output-to "resources/app/public/js/compiled/score_entry.js"
-                                     :output-dir "resources/app/public/js/compiled/score_entry_out"
-                                     :source-map-timestamp true
-                                     
-                                     }
-                          
-                          }]
-               }
+                          :compiler {:main "app.client.core"
+                                     :asset-path "js/compiled/client_out"
+                                     :output-to "resources/app/public/js/compiled/client.js"
+                                     :output-dir "resources/app/public/js/compiled/client_out"
+                                     :source-map-timestamp true}}]}
   :figwheel  {:http-server-root "app/public"
               :css-dirs  ["resources/app/public/css"]})

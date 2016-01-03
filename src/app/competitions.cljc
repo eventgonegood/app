@@ -11,11 +11,19 @@
    }
   )
 
+(defn new-measure [name description sort conversion-factor]
+  {:id 0
+   :name name
+   :description description
+   :sort sort
+   :conversion-factor conversion-factor})
+
 (defn new-event [name priority division]
   {:id 0
    :name name
    :division-id division
    :priority priority
+   :measures []
    }
   )
 
@@ -53,6 +61,11 @@
         event-def-with-id (assoc event-def :id (inc max-key))]
     (update-in competition [:events] #(conj % event-def-with-id))))
 
+(defn add-measure [event-def measure]
+ (let [ids (s/select [:measures s/ALL :id] event-def)
+       max-key (if (empty? ids) 0 (apply max ids))
+       measure-with-id (assoc measure :id (inc max-key))]
+   (update-in event-def [:measures] #(conj % measure-with-id))))
 
 (defn add-competitor [competition competitor]
   (let [ids (s/select [:competitors s/ALL :id] competition)
@@ -73,8 +86,12 @@
                   (add-competitor (new-competitor "Albert Leyva" "CrossFit Dallas Central" 1)) ;3
                   (add-competitor (new-competitor "Jeremy Kampen" "CrossFit Jaakarhu" 1)) ;4
 
-                  (add-event (new-event "Fran" :time 1)) ;1
-                  (add-event (new-event "Cindy" :task 1)) ;2
+                  (add-event (->
+                               (new-event "Fran" :task 1)
+                               (add-measure (new-measure "Reps" "Total Reps" :task 1)))) ;1
+                  (add-event (->
+                                (new-event "Cindy" :time 1)
+                                (add-measure (new-measure "Reps" "Total Reps" :task 1)))) ;2
 
                   ;athlete-id event-id
                   (add-score 1 1 {:value 20 :uom :sec})

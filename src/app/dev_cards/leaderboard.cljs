@@ -2,15 +2,12 @@
   (:require
    [om.core :as om :include-macros true]
    [app.competitions :as c]
+   [app.client.score-entry :as se]
    [cljs.test :as t :refer [report] :include-macros true]
    [sablono.core :as sab :include-macros true])
   (:require-macros
    [devcards.core :as dc :refer  [defcard deftest]]
    [cljs.test :refer [is testing async]]))
-
-(defn build-leaderboard [])
-
-(defn build-headers [])
 
 (defn leaderboard-widget [data]
   (om/component
@@ -35,17 +32,6 @@
                     [:td {:class "event"}
                      (:value s)])])]])))
 
-(defn score-entry-widget [data]
-  (om/component
-   (sab/html [:div {:class "score-entry"}
-              [:div {:class "input"}
-
-               (for [m (:measures data)]
-                 [:label 
-                  [:input {:type "text"}] 
-                  [:span (:name m)]])]
-              [:button "Submit"]])))
-
 (def score (get-in c/a-competition [:competitors 0]))
 
 (defcard a-leaderboard
@@ -54,7 +40,7 @@
   {:inspect-data true})
 
 (defcard one-score-entry
-  (dc/om-root score-entry-widget)
+  (dc/om-root se/score-entry-widget)
   {:measures [{:name "Reps"}]})
 
 (defcard two-score-entry

@@ -1,18 +1,11 @@
 @import "normalize.css";
+@import "constants.css";
+@import "chrome.css";
 
 body {
-    margin: 0px;
     font-family: sans-serif;
 }
 
-section, header {
-    lost-center: 1140px;
-    lost-utility: clearfix;
-}
-
-header {
-    background: #cbcbcb;
-}
 
 @import "leaderboard.css";
 @import "score-entry.css";
