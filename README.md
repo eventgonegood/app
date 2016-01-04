@@ -13,3 +13,18 @@ This is an application that is being built to further my understanding of the Cl
 :bd - delete buffer (an open file)
 :NERDTree - open the file system thingy
 http://www.cheatography.com/stepk/cheat-sheets/vim-nerdtree/
+
+
+# Client Side Application
+
+Written in ClojureScript + Om
+
+- Leaderboard
+- Score Entry
+
+# Backend Compojure + Hiccup
+
+
+# Overview Of System
+
+## Diagrams?
