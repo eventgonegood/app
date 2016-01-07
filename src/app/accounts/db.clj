@@ -1,10 +1,40 @@
 (ns app.accounts.db
-  (:refer-clojure :exclude [find])
   (:require 
    [com.stuartsierra.component :as component]
    [buddy.hashers :as hs]
+   [aggregate.core :as agg]
    [app.accounts.organizations :as o]
    [yesql.core :refer [defqueries]]))
+
+(hs/encrypt "password")
+
+(def accounts-er (agg/make-er-config
+          (agg/entity :accounts.organizations
+                      (agg/->mn :members  :accounts.users {
+                                                           :query-fn (agg/make-query-<many>-fn
+                                                                       :accounts.users
+                                                                       :accounts.memberships
+                                                                       :organization_id
+                                                                       :user_id
+                                                                       )
+                                                           } )
+                      )
+          (agg/entity :accounts.roles)
+          (agg/entity :accounts.users
+                      (agg/->mn :roles :accounts.roles {
+                                                        :query-fn (agg/make-query-<many>-fn
+                                                                    :accounts.roles
+                                                                    :accounts.memberships
+                                                                    :user_id
+                                                                    :role_id
+                                                                    )
+                                                        })
+                      )
+          ))
+
+(def quick-conn {:connection-uri "jdbc:postgresql://localhost:5432/egg?user=egg"})
+(agg/load accounts-er quick-conn :accounts.roles 1)
+(agg/load accounts-er quick-conn :accounts.users 1)
 
 (defqueries "sql/accounts.sql")
 
@@ -14,10 +44,27 @@
         roles (vec (map :role rows))]
     (assoc u :roles roles)))
 
+(defn format-organization [rows]
+  (loop [o [], remaining rows]
+    (if (empty? remaining) 
+      o
+     (let [current-row (first remaining)
+           org {:id (:organization_id current-row)
+                :name (:organization_name current-row)
+                }
+           orgs (conj o org)
+           ]
+      (recur orgs (rest rows))))))
+
 (defprotocol Accounts 
-  (get-all [this] "all accounts")
-  (auth [this username password] "authenticate user")
-  (find [this username] "find user by username"))
+  (load-organization [this id] "retreive organization by id")
+  (load-user [this id] "retrieve user by id")
+  (find-user [this username] "find user by username")
+  (load-role [this id] "retrieve role by id")
+  (load-all-organizations [this])
+  (load-all-users [this])
+  (load-all-roles [this])
+  (auth [this username password] "authenticate user"))
 
 (defrecord PgAccounts []
   ;; Implement the Lifecycle protocol
@@ -38,14 +85,22 @@
     component)
 
   Accounts
-  (get-all [this]
-    (sql-all-organizations {}  this))
-  (find [this username]
+  (load-organization [this id]
+    (agg/load accounts-er quick-conn :accounts.organizations id))
+  (load-user [this id] 
+    (agg/load accounts-er quick-conn :accounts.users id))
+  (find-user [this username]
     (->
      (find-user-by-username {:username username} this)
      format-user))
+  (load-role [this id] 
+    (agg/load accounts-er quick-conn :accounts.roles id))
+  (load-all-organizations [this]
+    (sql-all-organizations {} this))
+  (load-all-users [this] [{}])
+  (load-all-roles [this] [{}])
   (auth [this username password]
-    (let [user (find this username)
+    (let [user (find-user this username)
           unauthed [false "Invalid username or password"]]
       (if user
         (if (hs/check password (:password user))

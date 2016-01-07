@@ -1,0 +1,12 @@
+.accounts > div {
+  display:flex;
+  flex-direction:row;
+}
+
+
+.accounts > div > div {
+    width:32%;
+    margin:auto;
+}
+
+

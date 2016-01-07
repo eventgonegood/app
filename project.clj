@@ -9,6 +9,7 @@
                  [com.stuartsierra/component "0.3.1"]
                  [compojure "1.4.0"]
                  [devcards "0.2.1-2"]
+                 [aggregate "1.0.1"]
                  [duct "0.5.6"]
                  [environ "1.0.1"]
                  [enlive "1.1.6"]
@@ -23,12 +24,9 @@
                  [org.omcljs/om "0.9.0"]
                  [org.postgresql/postgresql "9.4.1207"]
                  [org.slf4j/slf4j-nop "1.7.13"]
-                 [org.webjars/normalize.css "3.0.2"]
                  [prismatic/schema "1.0.4"]
                  [ragtime "0.5.2"]
                  [ring "1.4.0"]
-                 [ring-jetty-component "0.3.0"]
-                 [ring-webjars "0.1.1"]
                  [ring/ring-defaults "0.1.5"]
                  [sablono "0.5.3"]
                  [yesql "0.5.1"]]
@@ -61,7 +59,7 @@
                    :repl-options {:init-ns user}}
    :project/test  {}}
 
-  :cljsbuild  {:builds  [{:id "devcards"
+  :cljsbuild  {:builds  [#_{:id "devcards"
                           :source-paths  ["src"]
                           :figwheel  {:devcards true} ;; <- note this
                           :compiler  {:main       "app.dev-cards.core"

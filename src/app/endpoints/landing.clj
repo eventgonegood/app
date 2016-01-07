@@ -7,7 +7,7 @@
 ;;config will contain the component items
 (defn landing-endpoint [config]
   (context "/" []
-    (GET "/" [request]
+    (GET "/" request 
       (if (authenticated? request)
         "Welcome Back"
         (redirect "/login")))))

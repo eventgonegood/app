@@ -4,4 +4,7 @@
     color: $header-color;
     padding:0.5rem;
   }
+  #stage {
+    padding:0.5em;
+  }
 }

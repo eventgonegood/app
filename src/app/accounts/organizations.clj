@@ -1,5 +1,4 @@
 (ns app.accounts.organizations
-  (:refer-clojure :exclude [find])
   (:require 
    [com.stuartsierra.component :as component]
    [schema.core :as s]
@@ -34,6 +33,4 @@
              (new-organization "Karhu")
              (add-user (new-user "Dru" "drusellers" "abc"))
              (add-user (new-user "Mike" "winchester" "abc"))))
-
-(clojure.pprint/pprint an-org)
 

@@ -4,12 +4,10 @@
             [ring.util.response :refer [redirect]]
             [clojure.pprint :refer [pprint]]
             [app.accounts.db :as act]
+            [app.util :refer [trim-request]]
             [app.endpoints.templates.layout :as l]
             [ring.util.anti-forgery :refer [anti-forgery-field]]
-            [buddy.auth.backends.session :refer [session-backend]]
             [clojure.java.io :as io]))
-
-(def backend (session-backend))
 
 ;;config will contain the component items
 (defn login-endpoint [config]
@@ -19,16 +17,17 @@
         (l/chrome "YO" 
                   [:form {:method "POST"}
                    [:label "Username"]
-                   [:input {:type "text"}]
+                   [:input {:type "text" :name "username"}]
                    [:label "Password"]
-                   [:input {:type "password"}]
+                   [:input {:type "password" :name "password"}]
                    [:button {:type "submit"} "submit"]])))
 
     (GET "/success" []
       "SUCCESS")
     (GET "/failure" []
       "FAIL")
-    (POST "/" [request]
+    (POST "/" request 
+      (clojure.pprint/pprint (trim-request request))
       (let [username (get-in request [:form-params "username"])
             password (get-in request [:form-params "password"])
             session (:session request)

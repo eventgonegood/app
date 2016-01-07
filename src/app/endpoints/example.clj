@@ -10,9 +10,9 @@
 (defn example-endpoint [config]
   (context "/example" []
     (GET "/" []
-      (l/chrome))
+      (l/chrome "example" "hi"))
     (GET "/cfg" []
       (pprint config)
-      (let [u (act/find (get-in [:accounts :connection] config) "drusellers")]
+      (let [u (act/find-user (get-in [:accounts :connection] config) "drusellers")]
         (generate-string u)))))
 

@@ -6,9 +6,7 @@
             [duct.middleware.not-found :refer [wrap-not-found]]
             [duct.middleware.route-aliases :refer [wrap-route-aliases]]
             [meta-merge.core :refer [meta-merge]]
-            [ring.component.jetty :refer [jetty-server]]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
-            [ring.middleware.webjars :refer [wrap-webjars]]
             [ring.util.response :refer [redirect]]
             [buddy.auth.backends.session :refer [session-backend]]
             [buddy.auth.middleware :refer [wrap-authentication wrap-authorization]]
@@ -32,7 +30,6 @@
 
 (def base-config
   {:app {:middleware [[wrap-not-found :not-found]
-                      [wrap-webjars]
                       [wrap-defaults :defaults]
                       ;[wrap-route-aliases :aliases]
                       [wrap-authentication backend]]

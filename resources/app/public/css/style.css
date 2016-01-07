@@ -1,11 +1,9 @@
 @import "normalize.css";
 @import "constants.css";
+@import "typography.css";
 @import "chrome.css";
 
-body {
-    font-family: sans-serif;
-}
 
-
+@import "accounts.css";
 @import "leaderboard.css";
 @import "score-entry.css";

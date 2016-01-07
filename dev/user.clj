@@ -32,6 +32,16 @@
   (load "local"))
 
 (reloaded.repl/set-init! new-system)
+
+(defn psa [sys]
+  (map #(hash-map % (keys (% sys))) (keys sys)))
+
+(defn phttp [sys]
+  (->
+    sys
+    :app
+    :middleware
+    ))
 ;;the above adds the following commands
 ;;- (init) - creates system map
 ;;- (start) - starts the system, must init first
