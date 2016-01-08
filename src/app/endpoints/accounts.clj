@@ -3,14 +3,14 @@
             [app.endpoints.templates.layout :as l]
             [compojure.core :refer :all]))
 
-(defn account-overview [accounts users roles]
+(defn account-overview [orgs users roles]
   [:section {:class "accounts"}
    [:h1 "Accounts"]
    [:div
    [:div 
     [:h2 "Organizations"]
     
-   (for [a accounts]
+   (for [a orgs]
      [:p (:name a)])  
     ]
    [:div 
@@ -30,11 +30,10 @@
   (let [db (:accounts config)]
     (context "/accounts" []
       (GET "/" []
-        (let [accounts (a/load-all-organizations db)
-              account-fake [{:name "Demo"}]
-              users [{:name "Dru"}]
-              roles [{:name "sa"}]
+        (let [orgs (a/load-all-organizations db)
+              users (a/load-all-users db)
+              roles (a/load-all-roles db)
               ]
 
-          (l/chrome "Accounts" (account-overview account-fake users roles)))))))
+          (l/chrome "Accounts" (account-overview orgs users roles)))))))
 

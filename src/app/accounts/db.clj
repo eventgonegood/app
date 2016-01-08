@@ -66,7 +66,7 @@
   (load-all-roles [this])
   (auth [this username password] "authenticate user"))
 
-(defrecord PgAccounts []
+(defrecord PgAccounts [db-spec]
   ;; Implement the Lifecycle protocol
   component/Lifecycle
 
@@ -86,18 +86,19 @@
 
   Accounts
   (load-organization [this id]
-    (agg/load accounts-er quick-conn :accounts.organizations id))
+    (agg/load accounts-er db-spec :accounts.organizations id))
   (load-user [this id] 
-    (agg/load accounts-er quick-conn :accounts.users id))
+    (agg/load accounts-er db-spec  :accounts.users id))
   (find-user [this username]
     (->
-     (find-user-by-username {:username username} this)
+     (find-user-by-username {:username username} {:connection db-spec})
      format-user))
   (load-role [this id] 
-    (agg/load accounts-er quick-conn :accounts.roles id))
+    (agg/load accounts-er db-spec :accounts.roles id))
   (load-all-organizations [this]
-    (sql-all-organizations {} this))
-  (load-all-users [this] [{}])
+    (sql-all-organizations {} {:connection db-spec}))
+  (load-all-users [this] 
+    (sql-all-users {} {:connection db-spec}))
   (load-all-roles [this] [{}])
   (auth [this username password]
     (let [user (find-user this username)
@@ -109,4 +110,4 @@
         unauthed))))
 
 (defn new-accounts-db [connection]
-  (map->PgAccounts {:connection connection}))
+  (map->PgAccounts {:db-spec connection}))
