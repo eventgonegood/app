@@ -1,7 +1,6 @@
 (ns app.endpoints.example
   (:require [compojure.core :refer :all]
             [cheshire.core :refer :all]
-            [clojure.pprint :refer [pprint]]
             [app.accounts.db :as act]
             [app.endpoints.templates.layout :as l]
             [clojure.java.io :as io]))
@@ -12,7 +11,6 @@
     (GET "/" []
       (l/chrome "example" "hi"))
     (GET "/cfg" []
-      (pprint config)
       (let [u (act/find-user (get-in [:accounts :connection] config) "drusellers")]
         (generate-string u)))))
 

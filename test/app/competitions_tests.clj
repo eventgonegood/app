@@ -7,11 +7,9 @@
 
 (d/defpath ALL2 []
   (select* [this structure next-fn]
-    (doall (mapcat next-fn structure))
-    )
+           (doall (mapcat next-fn structure)))
   (transform* [this structure next-fn]
-    (mapv next-fn structure)
-    )) 
+              (mapv next-fn structure))) 
 
 (deftest all-vs-all2
   (let [all (s/select [:events s/ALL] c/a-competition)

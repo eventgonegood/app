@@ -8,12 +8,13 @@
             [meta-merge.core :refer [meta-merge]]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
             [ring.util.response :refer [redirect]]
-            [buddy.auth.backends.session :refer [session-backend]]
-            [buddy.auth.middleware :refer [wrap-authentication wrap-authorization]]
+            [buddy.auth.middleware :refer [wrap-authentication]]
+            [buddy.auth.accessrules :refer [wrap-access-rules]]
             [app.endpoints.example :refer [example-endpoint]]
-            [app.endpoints.login :refer [login-endpoint]]
+            [app.security.middleware :refer [egg-backend egg-access-rules]]
+            [app.endpoints.login :refer [login-endpoint logout-endpoint]]
             [app.endpoints.landing :refer [landing-endpoint]]
-            [app.endpoints.accounts :refer [accounts-endpoint]]
+            [app.accounts.endpoint :refer [accounts-endpoint signup-endpoint]]
             [app.endpoints.score-entry :refer [score-entry-endpoint]]
             [app.endpoints.leaderboard :refer [leaderboard-endpoint]]
             [app.server.http :refer [new-http]]
@@ -21,19 +22,16 @@
             [app.server.migrate :refer [new-ragtime]]
             [clojure.pprint :refer [pprint]]))
 
-(defn unauthorized-handler [request metadata]
-  (let [current-url (:uri request)]
-    (redirect (format "/login?next=%s" current-url))))
-
-(def backend (session-backend
-              {:unauthorized-handler unauthorized-handler}))
-
 (def base-config
+  ;apparently this are applied in reverse order?
   {:app {:middleware [[wrap-not-found :not-found]
-                      [wrap-defaults :defaults]
                       ;[wrap-route-aliases :aliases]
-                      [wrap-authentication backend]]
+                      [wrap-access-rules :access-rules]
+                      [wrap-authentication :auth-backend]
+                      [wrap-defaults :defaults]]
          :not-found  (io/resource "app/errors/404.html")
+         :access-rules egg-access-rules
+         :auth-backend egg-backend
          :defaults   (meta-merge site-defaults {:static {:resources "app/public"}
                                                 :security {:anti-forgery false}})
          ;:aliases    {"/" "/index.html"}
@@ -48,14 +46,16 @@
          :http (new-http (:http config))
          :example (endpoint-component example-endpoint)
          :login (endpoint-component login-endpoint)
+         :logout (endpoint-component logout-endpoint)
          :score-entry (endpoint-component score-entry-endpoint)
          :landing (endpoint-component landing-endpoint)
          :leaderboard (endpoint-component leaderboard-endpoint)
          :accounts (new-accounts-db database)
-         :accounts-ep (endpoint-component accounts-endpoint))
+         :accounts-ep (endpoint-component accounts-endpoint)
+         :signup-ep (endpoint-component signup-endpoint))
         (component/system-using
          {:http [:app]
-          :app  [:example :login :leaderboard :landing :score-entry :accounts-ep]
+          :app  [:example :login :logout :leaderboard :landing :score-entry :accounts-ep :signup-ep]
           :accounts []
           :accounts-ep [:accounts]
           :login [:accounts]

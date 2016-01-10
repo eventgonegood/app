@@ -484,3 +484,11 @@ td.event > div:nth-child(2) {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
 }
+.error-band {
+    min-height: 500px;
+    color: #fff;
+}
+.error-band.e402 {
+    background: url(/img/402.jpg) center no-repeat fixed;
+    background-size: cover;
+}

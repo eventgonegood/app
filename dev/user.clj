@@ -38,10 +38,9 @@
 
 (defn phttp [sys]
   (->
-    sys
-    :app
-    :middleware
-    ))
+   sys
+   :app
+   :middleware))
 ;;the above adds the following commands
 ;;- (init) - creates system map
 ;;- (start) - starts the system, must init first

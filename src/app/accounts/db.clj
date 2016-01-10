@@ -9,28 +9,19 @@
 (hs/encrypt "password")
 
 (def accounts-er (agg/make-er-config
-          (agg/entity :accounts.organizations
-                      (agg/->mn :members  :accounts.users {
-                                                           :query-fn (agg/make-query-<many>-fn
-                                                                       :accounts.users
-                                                                       :accounts.memberships
-                                                                       :organization_id
-                                                                       :user_id
-                                                                       )
-                                                           } )
-                      )
-          (agg/entity :accounts.roles)
-          (agg/entity :accounts.users
-                      (agg/->mn :roles :accounts.roles {
-                                                        :query-fn (agg/make-query-<many>-fn
-                                                                    :accounts.roles
-                                                                    :accounts.memberships
-                                                                    :user_id
-                                                                    :role_id
-                                                                    )
-                                                        })
-                      )
-          ))
+                  (agg/entity :accounts.organizations
+                              (agg/->mn :members  :accounts.users {:query-fn (agg/make-query-<many>-fn
+                                                                              :accounts.users
+                                                                              :accounts.memberships
+                                                                              :organization_id
+                                                                              :user_id)}))
+                  (agg/entity :accounts.roles)
+                  (agg/entity :accounts.users
+                              (agg/->mn :roles :accounts.roles {:query-fn (agg/make-query-<many>-fn
+                                                                           :accounts.roles
+                                                                           :accounts.memberships
+                                                                           :user_id
+                                                                           :role_id)}))))
 
 (def quick-conn {:connection-uri "jdbc:postgresql://localhost:5432/egg?user=egg"})
 (agg/load accounts-er quick-conn :accounts.roles 1)
@@ -48,13 +39,11 @@
   (loop [o [], remaining rows]
     (if (empty? remaining) 
       o
-     (let [current-row (first remaining)
-           org {:id (:organization_id current-row)
-                :name (:organization_name current-row)
-                }
-           orgs (conj o org)
-           ]
-      (recur orgs (rest rows))))))
+      (let [current-row (first remaining)
+            org {:id (:organization_id current-row)
+                 :name (:organization_name current-row)}
+            orgs (conj o org)]
+        (recur orgs (rest rows))))))
 
 (defprotocol Accounts 
   (load-organization [this id] "retreive organization by id")

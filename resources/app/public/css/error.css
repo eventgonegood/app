@@ -1,0 +1,9 @@
+.error-band {
+    &.e402{
+        background: url(/img/402.jpg) center no-repeat fixed;
+        background-size: cover;
+    }
+
+    min-height: 500px;
+    color: #fff;
+}

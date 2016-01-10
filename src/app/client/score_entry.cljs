@@ -5,17 +5,13 @@
    [com.rpl.specter :as s]
    [com.rpl.specter.protocols :as p]
    [sablono.core :as html :refer-macros [html]])
-  (:require-macros [com.rpl.specter.macros :as d])
-  )
-
+  (:require-macros [com.rpl.specter.macros :as d]))
 
 (d/defpath ALL2 []
   (p/select* [this structure next-fn]
-    (doall (mapcat next-fn structure))
-    )
+             (doall (mapcat next-fn structure)))
   (p/transform* [this structure next-fn]
-    (mapv next-fn structure)
-    ))
+                (mapv next-fn structure)))
 
 (defn score-entry-widget [data owner]
   (om/component
