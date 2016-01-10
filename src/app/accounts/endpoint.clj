@@ -1,6 +1,6 @@
 (ns app.accounts.endpoint
   (:require [app.accounts.db :as a]
-            [app.endpoints.templates.layout :as l]
+            [app.server.templates.layout :as l]
             [compojure.core :refer :all]))
 
 (defn signup-form []

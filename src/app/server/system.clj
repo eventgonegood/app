@@ -10,13 +10,11 @@
             [ring.util.response :refer [redirect]]
             [buddy.auth.middleware :refer [wrap-authentication]]
             [buddy.auth.accessrules :refer [wrap-access-rules]]
-            [app.endpoints.example :refer [example-endpoint]]
             [app.security.middleware :refer [egg-backend egg-access-rules]]
-            [app.endpoints.login :refer [login-endpoint logout-endpoint]]
-            [app.endpoints.landing :refer [landing-endpoint]]
+            [app.security.endpoint :refer [login-endpoint logout-endpoint]]
             [app.accounts.endpoint :refer [accounts-endpoint signup-endpoint]]
-            [app.endpoints.score-entry :refer [score-entry-endpoint]]
-            [app.endpoints.leaderboard :refer [leaderboard-endpoint]]
+            [app.competitions.score-entry :refer [score-entry-endpoint]]
+            [app.competitions.leaderboard :refer [leaderboard-endpoint]]
             [app.server.http :refer [new-http]]
             [app.accounts.db :refer [new-accounts-db]]  
             [app.server.migrate :refer [new-ragtime]]
@@ -44,18 +42,16 @@
          :app  (handler-component (:app config))
          :ragtime (new-ragtime {:database database})
          :http (new-http (:http config))
-         :example (endpoint-component example-endpoint)
          :login (endpoint-component login-endpoint)
          :logout (endpoint-component logout-endpoint)
          :score-entry (endpoint-component score-entry-endpoint)
-         :landing (endpoint-component landing-endpoint)
          :leaderboard (endpoint-component leaderboard-endpoint)
          :accounts (new-accounts-db database)
          :accounts-ep (endpoint-component accounts-endpoint)
          :signup-ep (endpoint-component signup-endpoint))
         (component/system-using
          {:http [:app]
-          :app  [:example :login :logout :leaderboard :landing :score-entry :accounts-ep :signup-ep]
+          :app  [:login :logout :leaderboard :score-entry :accounts-ep :signup-ep]
           :accounts []
           :accounts-ep [:accounts]
           :login [:accounts]

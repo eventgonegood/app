@@ -1,6 +1,6 @@
-(ns app.endpoints.score-entry
+(ns app.competitions.score-entry
   (:require [compojure.core :refer :all]
-            [app.endpoints.templates.layout :as l]))
+            [app.server.templates.layout :as l]))
 
 (defn score-entry-html []
   [:div {:id "score-entry"}

@@ -1,4 +1,4 @@
-(ns app.endpoints.templates.layout
+(ns app.server.templates.layout
   (:require [hiccup.page :refer [include-css html5 include-js]]))
 
 (defn head 

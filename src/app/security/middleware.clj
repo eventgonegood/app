@@ -1,14 +1,14 @@
 (ns app.security.middleware
-
   (:require 
-   [hiccup.core :refer [html]]
    [app.util :refer [trim-request]]
-   [ring.util.response :refer [redirect]]
-   [app.endpoints.templates.layout :as l]
+   [app.server.templates.layout :as l]
    [buddy.auth.backends.session :refer [session-backend]]
    [buddy.auth :refer [authenticated?]]
    [buddy.auth.middleware :refer [wrap-authentication]]
-   [buddy.auth.accessrules :refer [wrap-access-rules success error]]))
+   [buddy.auth.accessrules :refer [wrap-access-rules success error]]  
+   [hiccup.core :refer [html]]
+   [ring.util.response :refer [redirect]]
+   ))
 
 (defn unauthorized-handler [request metadata]
   (let [current-url (:uri request)]

@@ -1,10 +1,10 @@
-(ns app.endpoints.leaderboard
+(ns app.competitions.leaderboard
   (:require [compojure.core :refer :all]
             [cheshire.core :refer :all]
             [ring.util.response :refer [redirect]]
             [clojure.pprint :refer [pprint]]
             [app.competitions :as competitions]
-            [app.endpoints.templates.layout :as l]
+            [app.server.templates.layout :as l]
             [clojure.java.io :as io]))
 
 (defn leaderboard-html [competition]
