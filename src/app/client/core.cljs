@@ -1,7 +1,7 @@
 (ns app.client.core
   (:require
    [app.client.score-entry :as se]
-   [app.competitions :as c]
+   [app.competitions.competitions :as c]
    [om.core :as om :include-macros true]
    [sablono.core :as html :refer-macros [html]]))
 

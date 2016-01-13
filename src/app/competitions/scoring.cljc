@@ -1,6 +1,6 @@
-(ns app.scoring
+(ns app.competitions.scoring
   (:require [com.rpl.specter :as s]
-            [app.competitions :as c]))
+            [app.competitions.competitions :as c]))
 
 (defn extract-scores 
   "Given a competition will extract a vector of values from an event key"

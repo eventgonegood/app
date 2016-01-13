@@ -3,7 +3,7 @@
             [cheshire.core :refer :all]
             [ring.util.response :refer [redirect]]
             [clojure.pprint :refer [pprint]]
-            [app.competitions :as competitions]
+            [app.competitions.competitions :as competitions]
             [app.server.templates.layout :as l]
             [clojure.java.io :as io]))
 

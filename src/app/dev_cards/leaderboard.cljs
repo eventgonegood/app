@@ -1,7 +1,7 @@
 (ns app.dev-cards.leaderboard
   (:require
    [om.core :as om :include-macros true]
-   [app.competitions :as c]
+   [app.competitions.competitions :as c]
    [app.client.score-entry :as se]
    [cljs.test :as t :refer [report] :include-macros true]
    [sablono.core :as sab :include-macros true])

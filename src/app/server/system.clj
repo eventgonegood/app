@@ -13,6 +13,7 @@
             [app.security.middleware :refer [egg-backend egg-access-rules]]
             [app.security.endpoint :refer [login-endpoint logout-endpoint]]
             [app.accounts.endpoint :refer [accounts-endpoint signup-endpoint]]
+            [app.staff.endpoint :refer [staff-endpoint]]
             [app.competitions.score-entry :refer [score-entry-endpoint]]
             [app.competitions.leaderboard :refer [leaderboard-endpoint]]
             [app.server.http :refer [new-http]]
@@ -48,11 +49,12 @@
          :leaderboard (endpoint-component leaderboard-endpoint)
          :accounts (new-accounts-db database)
          :accounts-ep (endpoint-component accounts-endpoint)
-         :signup-ep (endpoint-component signup-endpoint))
+         :signup-ep (endpoint-component signup-endpoint)
+         :staff-ep (endpoint-component staff-endpoint)
+         )
         (component/system-using
          {:http [:app]
-          :app  [:login :logout :leaderboard :score-entry :accounts-ep :signup-ep]
+          :app  [:login :logout :leaderboard :score-entry :accounts-ep :signup-ep :staff-ep]
           :accounts []
           :accounts-ep [:accounts]
-          :login [:accounts]
-          :example [:accounts]}))))
+          :login [:accounts]}))))

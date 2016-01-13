@@ -22,3 +22,16 @@
       body]]
     (include-js "/js/compiled/client.js")]))
 
+(defn landing-chrome [title left right]
+  (chrome title 
+          [:div
+           
+          [:div {:id "landing-content"}
+           left
+           ]
+          [:div {:id "landing-sidebar"}
+           right
+           ]
+           ]
+          )
+  )

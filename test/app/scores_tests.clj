@@ -1,8 +1,8 @@
 (ns app.scores-tests
   (:require [clojure.test :refer :all] 
-            [app.scoring :as s]
+            [app.competitions.scoring :as s]
             [clojure.pprint :refer [pprint]]
-            [app.competitions :as c]))
+            [app.competitions.competitions :as c]))
 
 (deftest can-extract-scores
   (let [extraction (s/extract-scores c/a-competition 1)]

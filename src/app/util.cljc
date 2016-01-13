@@ -1,8 +1,6 @@
 (ns app.util
- (:require  
-            [com.rpl.specter :as s]
-            [com.rpl.specter.macros :as d]
-            [com.rpl.specter.protocols :as p]))
+  (#? (:clj :require :cljs :require-macros)
+  [com.rpl.specter.macros :as d]) )
 
 
 (defn by-id 

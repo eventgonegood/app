@@ -6,7 +6,7 @@
             [app.accounts.endpoint  :as ep]))
 
 (def handler 
-  (ep/accounts-endpoint {}))
+  (ep/signup-endpoint {}))
 
 (deftest smoke-test
   (testing "signup page"

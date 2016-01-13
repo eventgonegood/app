@@ -1,4 +1,4 @@
-(ns app.competitions
+(ns app.competitions.competitions
 (:require [com.rpl.specter :as s]
           [app.util :refer [by-id]]
           ))
