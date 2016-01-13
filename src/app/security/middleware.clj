@@ -44,7 +44,9 @@
     {:status 403
      :headers {}
      :body  (error-band "Not Authorizzed!")} 
-    (redirect "/login")))
+    (let [current-url (:uri request)]
+      
+      (redirect (format "/login?next=%s" current-url)))))
 
 (def egg-access-rules {:rules rules
                        :on-error on-error})

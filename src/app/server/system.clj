@@ -14,6 +14,8 @@
             [app.security.endpoint :refer [login-endpoint logout-endpoint]]
             [app.accounts.endpoint :refer [accounts-endpoint signup-endpoint]]
             [app.staff.endpoint :refer [staff-endpoint]]
+            [app.coach.endpoint :refer [coach-endpoint]]
+            [app.athlete.endpoint :refer [athlete-endpoint]]
             [app.competitions.score-entry :refer [score-entry-endpoint]]
             [app.competitions.leaderboard :refer [leaderboard-endpoint]]
             [app.server.http :refer [new-http]]
@@ -51,10 +53,12 @@
          :accounts-ep (endpoint-component accounts-endpoint)
          :signup-ep (endpoint-component signup-endpoint)
          :staff-ep (endpoint-component staff-endpoint)
+         :coach-ep (endpoint-component coach-endpoint)
+         :athlete-ep (endpoint-component athlete-endpoint)
          )
         (component/system-using
          {:http [:app]
-          :app  [:login :logout :leaderboard :score-entry :accounts-ep :signup-ep :staff-ep]
+          :app  [:login :logout :leaderboard :score-entry :accounts-ep :signup-ep :staff-ep :coach-ep :athlete-ep]
           :accounts []
           :accounts-ep [:accounts]
           :login [:accounts]}))))

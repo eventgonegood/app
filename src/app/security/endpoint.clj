@@ -36,9 +36,10 @@
         (let [username (get-in request [:form-params "username"])
               password (get-in request [:form-params "password"])
               session (:session request)
+              next-url (get-in request [:query-params "next"] "/")
               updated-session (assoc session :identity (keyword username))
               result (act/auth (:accounts config) username password)]
           (if (result 0)
-            (let [u (-> (redirect "/login/success") (assoc :session updated-session))]
+            (let [u (-> (redirect next-url) (assoc :session updated-session))]
               u)
             (redirect "/login/failure"))))))
