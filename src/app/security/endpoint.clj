@@ -21,12 +21,13 @@
       (GET "/" []
         (let [f (anti-forgery-field)]
           (l/chrome "YO" 
+                    [:div {:id "login-box"}
                     [:form {:method "POST"}
                      [:label "Username"]
                      [:input {:type "text" :name "username"}]
                      [:label "Password"]
                      [:input {:type "password" :name "password"}]
-                     [:button {:type "submit"} "submit"]])))
+                     [:button {:type "submit"} "submit"]]])))
 
       (GET "/success" request
         "SUCCESS")

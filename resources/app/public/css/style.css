@@ -9,3 +9,21 @@
 @import "score-entry.css";
 @import "error.css";
 @import "landing.css";
+
+#login-box {
+  lost-center: 300px;
+
+  label {
+    margin-top:0.5rem;
+    margin-bottom:0.5rem;
+    display:block;
+  }
+
+  input {
+    width:100%;
+  }
+  button {
+    margin-top:0.5rem;
+    display:block;
+  }
+}

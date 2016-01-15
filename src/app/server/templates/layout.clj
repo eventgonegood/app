@@ -24,7 +24,7 @@
 
 (defn landing-chrome [title left right]
   (chrome title 
-          [:div
+          [:div {:id "landing"}
            
           [:div {:id "landing-content"}
            left

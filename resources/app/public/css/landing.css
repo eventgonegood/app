@@ -6,6 +6,7 @@
   lost-column:2/3;
 }
 
+
 .widget-sidebar {
     width:100%;
     padding: 1rem;
@@ -16,6 +17,64 @@
 padding:0.5rem;
 background: $widget-background;
 margin-bottom:1rem;
+
+  small {
+    font-size:0.75rem;
+    display:block;
+  }
+}
+
+.metrics-sidebar {
+    width:100%;
+    padding: 1rem;
+
+    lost-utility: clearfix;
+  table {
+    width: 100%;
+    padding-bottom: 0.5rem;
+  }
+
+  thead {
+    background: #eee;
+  }
+  th {
+   color: #666;
+   padding:0.5rem;
+      text-align:left;
+  }
+  td {
+      padding: 0.5rem;
+  }
+  tfoot {
+      border-top:1px solid #666;
+    color: #aaa;
+  }
+
+  h2 {
+  }
+}
+
+.metric {
+  margin-bottom:1rem;
+  lost-column: 1/3;
+
+
+  small {
+    font-size: 0.75rem;
+    display:block;
+  }
+}
+
+.quickbooks-status {
+  border-top: 1px solid #333;
+  padding: 1rem;
+  margin-top:1rem;
+  width: 100%;
+
+  small {
+    display:block;
+    font-size: 0.75rem;
+  }
 }
 
 .events {

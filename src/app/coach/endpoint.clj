@@ -12,31 +12,48 @@
  [:li {:class "social"} (:text event)] 
   )
 
-(defn attendence-widget []
-  [:div {:class "widget"}
-   "Attendence"
+(defn coach-actions []
+  [:div {:class "widget-sidebar"}
+   [:div {:class "action"}
+   "Plan WOD" 
+    ]
    ]
   )
+
 (defn pr-widget []
   [:div {:class "widget"}
-   "PRs"
+   "Jeff V. - +5# Snatch"
+   [:small "PRs"]
    ]
   )
 
 (defn leaderboard-widget []
   [:div {:class "widget"}
    "LEADERBOARD"
+   ])
+
+(defn attendence-metric []
+  [:div {:class "metric"}
+   "3 classes (62 people)"
+   [:small "Classes (Population)"]
    ]
   )
 
+(defn days-til-open-metric []
+  [:div {:class "metric"}
+    "26 days"
+    [:small "until the Open"]
+   ])
+
+(defn coach-metrics []
+  [:div {:class "metrics-sidebar"}
+    (attendence-metric) 
+    (days-til-open-metric)
+   ]
+  )
 (defn coach-sidebar-widget []
-[:div {:class "widget-sidebar"}
- ;widgets
- ;actions
- ;quick books status
- (attendence-widget)
- (pr-widget)
- (leaderboard-widget)
+[:div
+ (coach-metrics)
  ]  
   )
 
