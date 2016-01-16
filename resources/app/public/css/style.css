@@ -2,6 +2,8 @@
 @import "constants.css";
 @import "typography.css";
 @import "chrome.css";
+@import "buttons.css";
+@import "input.css";
 
 
 @import "accounts.css";
@@ -9,6 +11,7 @@
 @import "score-entry.css";
 @import "error.css";
 @import "landing.css";
+@import "welcome.css";
 
 #login-box {
   lost-center: 300px;

@@ -2,8 +2,7 @@
   (:require [compojure.core :refer :all]
             [cheshire.core :refer :all]
             [ring.util.response :refer [redirect]]
-            [clojure.pprint :refer [pprint]]
-            [app.accounts.db :as act]
+            [app.security.db :as sec]
             [app.util :refer [trim-request]]
             [app.server.templates.layout :as l]
             [ring.util.anti-forgery :refer [anti-forgery-field]]
@@ -24,23 +23,18 @@
                     [:div {:id "login-box"}
                     [:form {:method "POST"}
                      [:label "Username"]
-                     [:input {:type "text" :name "username"}]
+                     [:input {:type "text" :name "username" :autofocus "autofocus"}]
                      [:label "Password"]
                      [:input {:type "password" :name "password"}]
                      [:button {:type "submit"} "submit"]]])))
-
-      (GET "/success" request
-        "SUCCESS")
-      (GET "/failure" []
-        "FAIL")
       (POST "/" request 
         (let [username (get-in request [:form-params "username"])
               password (get-in request [:form-params "password"])
               session (:session request)
               next-url (get-in request [:query-params "next"] "/")
               updated-session (assoc session :identity (keyword username))
-              result (act/auth (:accounts config) username password)]
+              result (sec/auth (:database config) username password)]
           (if (result 0)
             (let [u (-> (redirect next-url) (assoc :session updated-session))]
               u)
-            (redirect "/login/failure"))))))
+            (redirect "/login"))))))

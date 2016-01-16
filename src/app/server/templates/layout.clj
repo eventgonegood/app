@@ -17,7 +17,9 @@
    [:body
     [:div {:id "chrome"}
      [:header
-      [:img {:src "/img/header-logo.png" :height "18px" :width "18px"}]]
+      [:img {:src "/img/header-logo.png" :height "18px" :width "18px"}]
+      "drusellers"
+      ]
      [:div {:id "stage"}
       body]]
     (include-js "/js/compiled/client.js")]))

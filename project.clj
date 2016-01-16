@@ -43,6 +43,8 @@
                                      "target"]
   :aliases {"gen"   ["generate"]
             "js"    ["do" "clean," "cljsbuild" "once"]
+            "migrate" ["run" "-m" "app.server.migrate/migrate"]
+            "rollback" ["run" "-m" "app.server.migrate/rollback"]
             "setup" ["do" ["generate" "locals"]]}
   :profiles
   {:dev  [:project/dev  :profiles/dev]

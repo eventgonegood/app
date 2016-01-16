@@ -15,11 +15,13 @@
 
 (s/defschema Role
   {:id s/Int
-   :name s/Str}) (defn new-user [name username password]
+   :name s/Str}) 
+
+(defn new-user [name username password]
                    {:id 0
                     :name name
                     :username username
-                    :password password})
+                    :password (hs/encrypt password)})
 
 (defn new-organization [name]
   {:id 0

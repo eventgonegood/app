@@ -33,6 +33,9 @@
 
 (reloaded.repl/set-init! new-system)
 
+(defn migrate [] 
+  (app.server.migrate/migrate (:ragtime system)))
+
 (defn psa [sys]
   (map #(hash-map % (keys (% sys))) (keys sys)))
 

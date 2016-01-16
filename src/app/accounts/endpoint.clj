@@ -1,11 +1,12 @@
 (ns app.accounts.endpoint
-  (:require [app.accounts.db :as a]
+  (:require 
+            [app.security.db :as i]
             [app.server.templates.layout :as l]
             [compojure.core :refer :all]))
 
 (defn signup-form []
   [:h1 "signup"]
-  [:section 
+  [:section {:id "login-box"}
    [:form {:action "" :method "POST"}
     [:label "Email Address"]
     [:input {:type "text" :name "email"}] 
@@ -17,11 +18,16 @@
     [:button {:type "submit"} "Create your account"]]])
 
 (defn signup-endpoint [config]
-  (context "/signup" []
-    (GET "/" []
-      (l/chrome "Signup" (signup-form)))
-    (POST "/" [email password confirm_password]
-      (l/chrome "WHOOT" (str email " : " password)))))
+  (let [{db :database} config] 
+    (context "/signup" []
+      (GET "/" []
+        (l/chrome "Signup" (signup-form)))
+      (POST "/" [email password confirm_password]
+        (if (= password confirm_password)
+          (do 
+            (i/register-identity db email password)
+            (l/chrome "WHOOT" (str email " : " password))   )
+          (l/chrome "WHOOT" "Password Mismatch"))))))
 
 (defn account-overview [orgs users roles]
   [:section {:class "accounts"}
@@ -41,15 +47,24 @@
      (for [a roles]
        [:p (:name a)])]]])
 
+(defn welcome-overview []
+  [:div {:id "welcome-page"}
+   [:div "left"]
+   [:div "right"]
+   ]
+  )
+
 ;config contains the various parameters
 (defn accounts-endpoint [config]
   (context "/accounts" []
-
+    (GET "/welcome" request
+      (l/chrome "Welome" (welcome-overview))         
+         )
     (GET "/" []
       (let [db (:accounts config)
-            orgs (a/load-all-organizations db)
-            users (a/load-all-users db)
-            roles (a/load-all-roles db)]
+            orgs []
+            users []
+            roles []]
         (l/chrome "Accounts" (account-overview orgs users roles))))
     (GET "/org/:id" [id]
       (l/chrome "ORGS" (str "HI " id)))))

@@ -19,7 +19,6 @@
             [app.competitions.score-entry :refer [score-entry-endpoint]]
             [app.competitions.leaderboard :refer [leaderboard-endpoint]]
             [app.server.http :refer [new-http]]
-            [app.accounts.db :refer [new-accounts-db]]  
             [app.server.migrate :refer [new-ragtime]]
             [clojure.pprint :refer [pprint]]))
 
@@ -45,11 +44,15 @@
          :app  (handler-component (:app config))
          :ragtime (new-ragtime {:database database})
          :http (new-http (:http config))
-         :login (endpoint-component login-endpoint)
-         :logout (endpoint-component logout-endpoint)
-         :score-entry (endpoint-component score-entry-endpoint)
-         :leaderboard (endpoint-component leaderboard-endpoint)
-         :accounts (new-accounts-db database)
+
+         ;; database / repositories
+         :database database
+
+         ;; endpoints
+         :login-ep (endpoint-component login-endpoint)
+         :logout-ep (endpoint-component logout-endpoint)
+         :score-entry-ep (endpoint-component score-entry-endpoint)
+         :leaderboard-ep (endpoint-component leaderboard-endpoint)
          :accounts-ep (endpoint-component accounts-endpoint)
          :signup-ep (endpoint-component signup-endpoint)
          :staff-ep (endpoint-component staff-endpoint)
@@ -58,7 +61,7 @@
          )
         (component/system-using
          {:http [:app]
-          :app  [:login :logout :leaderboard :score-entry :accounts-ep :signup-ep :staff-ep :coach-ep :athlete-ep]
-          :accounts []
-          :accounts-ep [:accounts]
-          :login [:accounts]}))))
+          :app  [:login-ep :logout-ep :leaderboard-ep :score-entry-ep :accounts-ep :signup-ep :staff-ep :coach-ep :athlete-ep]
+          :accounts-ep [:database]
+          :signup-ep [:database]
+          :login-ep [:database]}))))
