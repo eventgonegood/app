@@ -7,8 +7,7 @@
    [buddy.auth.middleware :refer [wrap-authentication]]
    [buddy.auth.accessrules :refer [wrap-access-rules success error]]  
    [hiccup.core :refer [html]]
-   [ring.util.response :refer [redirect]]
-   ))
+   [ring.util.response :refer [redirect]]))
 
 (defn unauthorized-handler [request metadata]
   (let [current-url (:uri request)]
@@ -45,7 +44,7 @@
      :headers {}
      :body  (error-band "Not Authorizzed!")} 
     (let [current-url (:uri request)]
-      
+
       (redirect (format "/login?next=%s" current-url)))))
 
 (def egg-access-rules {:rules rules

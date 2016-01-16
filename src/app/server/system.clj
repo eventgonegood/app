@@ -57,8 +57,7 @@
          :signup-ep (endpoint-component signup-endpoint)
          :staff-ep (endpoint-component staff-endpoint)
          :coach-ep (endpoint-component coach-endpoint)
-         :athlete-ep (endpoint-component athlete-endpoint)
-         )
+         :athlete-ep (endpoint-component athlete-endpoint))
         (component/system-using
          {:http [:app]
           :app  [:login-ep :logout-ep :leaderboard-ep :score-entry-ep :accounts-ep :signup-ep :staff-ep :coach-ep :athlete-ep]

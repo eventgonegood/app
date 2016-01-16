@@ -1,5 +1,7 @@
 (ns app.server.templates.layout
-  (:require [hiccup.page :refer [include-css html5 include-js]]))
+  (:require [hiccup.page :refer [include-css html5 include-js]]
+            [clavatar.core :refer [gravatar]]
+            ))
 
 (defn head 
   "Builds out the title and adds javascript"
@@ -11,29 +13,37 @@
    [:title title]
    (include-css "/css/generated.css")])
 
-(defn chrome [title body]
+(defn render-login-state [login-state]
+  (if-let [{avatar :avatar username :username} login-state] 
+    [:div {:class "login-state"}
+      [:img {:src avatar :alt username :height 20}]
+      [:a {:href "/logout"} "Logout"]
+     ]
+    )  
+  )
+
+(defn chrome 
+  "Draw the main layout of a page"
+  ([title body]
+    (chrome title nil body))
+  ([title login-state body]
   (html5
    (head title)
    [:body
     [:div {:id "chrome"}
      [:header
       [:img {:src "/img/header-logo.png" :height "18px" :width "18px"}]
-      "drusellers"
-      ]
+      (render-login-state nil)
+     ]
      [:div {:id "stage"}
       body]]
-    (include-js "/js/compiled/client.js")]))
+    (include-js "/js/compiled/client.js")])))
 
 (defn landing-chrome [title left right]
   (chrome title 
           [:div {:id "landing"}
-           
-          [:div {:id "landing-content"}
-           left
-           ]
-          [:div {:id "landing-sidebar"}
-           right
-           ]
-           ]
-          )
-  )
+
+           [:div {:id "landing-content"}
+            left]
+           [:div {:id "landing-sidebar"}
+            right]]))

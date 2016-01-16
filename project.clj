@@ -8,6 +8,7 @@
                  [com.rpl/specter "0.9.0"]
                  [com.stuartsierra/component "0.3.1"]
                  [compojure "1.4.0"]
+                 [clavatar "0.2.1"]
                  [devcards "0.2.1-2"]
                  [aggregate "1.0.1"]
                  [duct "0.5.6"]

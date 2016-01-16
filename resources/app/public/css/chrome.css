@@ -9,3 +9,16 @@
     lost-center:980px;
   }
 }
+
+.login-state {
+  float: right;
+
+  img {
+    border-radius: 3px;
+    margin-right: 0.5rem;
+  }
+
+  a, a:visited {
+    color: #fff;
+  }
+}

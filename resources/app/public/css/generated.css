@@ -368,6 +368,15 @@ p {
   display:table;
   clear:both;
 }
+.login-state {
+  float:right;
+}
+.login-state img {
+  border-radius:3px;
+}
+.login-state a, .login-state a:visited {
+  color:#fff;
+}
 /* https://github.com/yahoo/pure/blob/master/src/buttons/css/buttons.css */
 button {
   font-family:inherit;

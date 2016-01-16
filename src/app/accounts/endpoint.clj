@@ -1,8 +1,8 @@
 (ns app.accounts.endpoint
   (:require 
-            [app.security.db :as i]
-            [app.server.templates.layout :as l]
-            [compojure.core :refer :all]))
+   [app.security.db :as i]
+   [app.server.templates.layout :as l]
+   [compojure.core :refer :all]))
 
 (defn signup-form []
   [:h1 "signup"]
@@ -26,7 +26,7 @@
         (if (= password confirm_password)
           (do 
             (i/register-identity db email password)
-            (l/chrome "WHOOT" (str email " : " password))   )
+            (l/chrome "WHOOT" (str email " : " password)))
           (l/chrome "WHOOT" "Password Mismatch"))))))
 
 (defn account-overview [orgs users roles]
@@ -50,16 +50,13 @@
 (defn welcome-overview []
   [:div {:id "welcome-page"}
    [:div "left"]
-   [:div "right"]
-   ]
-  )
+   [:div "right"]])
 
 ;config contains the various parameters
 (defn accounts-endpoint [config]
   (context "/accounts" []
     (GET "/welcome" request
-      (l/chrome "Welome" (welcome-overview))         
-         )
+      (l/chrome "Welome" (welcome-overview)))
     (GET "/" []
       (let [db (:accounts config)
             orgs []

@@ -4,7 +4,6 @@
    [aggregate.core :as agg]
    [yesql.core :refer [defqueries]]))
 
-
 (defqueries "sql/events.sql")
 
 (defprotocol Events
@@ -21,10 +20,7 @@
 
   Events
   (record-event [this event]
-    (sql-insert-event! {:payload event} {:connection db-spec})  
-    )
-  )
+    (sql-insert-event! {:payload event} {:connection db-spec})))
 
 (defn new-event [db-spec]
-  (map->PgEvents db-spec)
-  )
+  (map->PgEvents db-spec))

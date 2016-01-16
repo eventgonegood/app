@@ -18,10 +18,10 @@
    :name s/Str}) 
 
 (defn new-user [name username password]
-                   {:id 0
-                    :name name
-                    :username username
-                    :password (hs/encrypt password)})
+  {:id 0
+   :name name
+   :username username
+   :password (hs/encrypt password)})
 
 (defn new-organization [name]
   {:id 0
