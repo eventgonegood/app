@@ -1,6 +1,6 @@
 (ns app.server.templates.layout
   (:require [hiccup.page :refer [include-css html5 include-js]]
-            [clavatar.core :refer [gravatar]]
+            [app.server.navigation :as nav]
             ))
 
 (defn head 
@@ -22,6 +22,15 @@
     )  
   )
 
+(defn render-navigation []
+  (let [navi (nav/build)]
+    [:nav
+     (for [n navi]
+       [:a {:href (:href n)} (:label n)]
+       )
+     ]
+    ))
+
 (defn chrome 
   "Draw the main layout of a page"
   ([title body]
@@ -33,17 +42,23 @@
     [:div {:id "chrome"}
      [:header
       [:img {:src "/img/header-logo.png" :height "18px" :width "18px"}]
-      (render-login-state nil)
+      (render-navigation)
+      (render-login-state login-state)
      ]
      [:div {:id "stage"}
       body]]
-    (include-js "/js/compiled/client.js")])))
+    #_(include-js "/js/compiled/client.js")])))
 
-(defn landing-chrome [title left right]
-  (chrome title 
+(defn landing-chrome 
+  "Draw the standard landing page chrome"
+  ([title left right]
+   (landing-chrome title nil left right))
+  ([title login-state left right]
+   (chrome title 
+           login-state
           [:div {:id "landing"}
 
            [:div {:id "landing-content"}
             left]
            [:div {:id "landing-sidebar"}
-            right]]))
+            right]])))

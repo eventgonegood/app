@@ -1,7 +1,8 @@
-(ns app.security.db
+(ns app.security.identities
   (:require 
    [com.stuartsierra.component :as component]
    [buddy.hashers :as hs]
+   [clavatar.core :refer [gravatar]]
    [aggregate.core :as agg]
    [yesql.core :refer [defqueries]]))
 
@@ -28,8 +29,16 @@
         unauthed)
       unauthed)))
 
-(defn register-identity [db username password]
-  (sql-insert-identity {:name username :username username :password (hs/encrypt password)} {:connection db}))
+(defn register-identity [db email username password]
+  (first (sql-insert-identity {:name username :email email :username username :password (hs/encrypt password)} {:connection db})))
 
 (defn load-all-identities [db]
   (sql-all-identities {} {:connection db}))
+
+(defn extract [request]
+  (let [identity (:identity request)]
+    (assoc identity :avatar (gravatar (:email identity) :default :retro :size 40))))
+
+(defn send-validation-email [identity]
+  (println (str "SENT EMAIL TO " (:email identity)))  
+  identity)

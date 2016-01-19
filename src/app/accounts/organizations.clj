@@ -1,38 +1,35 @@
 (ns app.accounts.organizations
-  (:require 
-   [com.stuartsierra.component :as component]
-   [schema.core :as s]
-   [buddy.hashers :as hs]))
+  (:require
+   [aggregate.core :as agg]
+   [app.accounts.schemas :as s]
+   [yesql.core :refer [defqueries]]))
 
-(s/defschema User
-  {:id s/Int
-   :name s/Str
-   :username s/Str
-   :password s/Str}) (s/defschema Organization
-                       {:id s/Int
-                        :name s/Str
-                        (s/optional-key :users) [User]})
+(def accounts-er (agg/make-er-config
+                    (agg/entity :accounts.profiles) ;links orgs to identities
+                    (agg/entity :accounts.roles)
+                    (agg/entity :accounts.organizations
+                                (agg/->mn :members  :accounts.profiles {:query-fn (agg/make-query-<many>-fn
+                                                                                :accounts.profiles
+                                                                                :accounts.memberships
+                                                                                :organization_id
+                                                                                :identity_id)}))
 
-(s/defschema Role
-  {:id s/Int
-   :name s/Str}) 
+                     (agg/entity :accounts.memberships
+                       (agg/->1 :role :accounts.roles {:owned? false})
+                       (agg/->1 :organization :accounts.organizations {:owned? false}))
+                  ))
 
-(defn new-user [name username password]
-  {:id 0
-   :name name
-   :username username
-   :password (hs/encrypt password)})
+(defn load-membership [db id]
+  (agg/load accounts-er db :accounts.memberships id))
 
-(defn new-organization [name]
-  {:id 0
-   :name name
-   :users []})  
+(defn load-organization [db id]
+  (agg/load accounts-er db :accounts.organizations id))
 
-(defn add-user [organization user]
-  (update-in organization [:users] #(conj % user)))
+(defn load-role [db id]
+  (agg/load accounts-er db :accounts.roles id))
 
-(def an-org (->
-             (new-organization "Karhu")
-             (add-user (new-user "Dru" "drusellers" "abc"))
-             (add-user (new-user "Mike" "winchester" "abc"))))
+(defn load-profile [db id]
+  (agg/load accounts-er db :accounts.profiles id))
+
+#_(defqueries "sql/accounts.sql")
 

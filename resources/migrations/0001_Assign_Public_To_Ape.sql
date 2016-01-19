@@ -1,2 +1,2 @@
 ALTER SCHEMA public
-  OWNER TO egg;
+  OWNER TO ape;

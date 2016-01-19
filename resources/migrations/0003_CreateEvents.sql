@@ -1,5 +1,5 @@
 CREATE SCHEMA events
-  AUTHORIZATION egg;
+  AUTHORIZATION ape;
 
 CREATE TABLE events.events
 (
@@ -9,4 +9,4 @@ CREATE TABLE events.events
   CONSTRAINT pk_events PRIMARY KEY (id)
 );
 ALTER TABLE events.events
-  OWNER TO egg;
+  OWNER TO ape;

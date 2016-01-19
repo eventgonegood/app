@@ -22,3 +22,14 @@
     color: #fff;
   }
 }
+
+nav {
+    display: inline;
+    font-weight: 100;
+
+    a, a:visited {
+        text-decoration: none;
+        margin: 0.5rem;
+        color:#fff;
+    }
+}

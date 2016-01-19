@@ -1,6 +1,6 @@
 (defproject app "0.1.0-SNAPSHOT"
-  :description "FIXME: write description"
-  :url "http://example.com/FIXME"
+  :description "Athlete Performance Evaluation"
+  :url "https://ape.com/"
   :min-lein-version "2.0.0"
   :dependencies [[buddy "0.8.3"]
                  [abengoa/clj-stripe "1.0.4"]

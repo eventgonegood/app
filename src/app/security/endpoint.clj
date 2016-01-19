@@ -2,11 +2,11 @@
   (:require [compojure.core :refer :all]
             [cheshire.core :refer :all]
             [ring.util.response :refer [redirect]]
-            [app.security.db :as sec]
+            [app.security.identities :as ident]
             [app.util :refer [trim-request]]
+            [app.events :refer [record-login]]
             [app.server.templates.layout :as l]
-            [ring.util.anti-forgery :refer [anti-forgery-field]]
-            [clojure.java.io :as io]))
+            [ring.util.anti-forgery :refer [anti-forgery-field]]))
 
 (defn logout-endpoint [config]
   (GET "/logout" []
@@ -32,9 +32,11 @@
             password (get-in request [:form-params "password"])
             session (:session request)
             next-url (get-in request [:query-params "next"] "/")
-            updated-session (assoc session :identity (keyword username))
-            result (sec/auth (:database config) username password)]
+            result (ident/auth (:database config) username password) 
+            updated-session (assoc session :identity (get-in result [1 :user]))
+            ]
         (if (result 0)
           (let [u (-> (redirect next-url) (assoc :session updated-session))]
+            (record-login (:database config) (get-in result [1 :user]))
             u)
           (redirect "/login"))))))
