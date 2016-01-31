@@ -26,7 +26,7 @@
    :reporter repl/default-reporter
    :resource-path "migrations"})
 
-(defn new-ragtime 
+(defn new-ragtime
   "Create a Ragtime component for handling migrations. Expects a dependency
     :database that has a key :spec containing a clojure.java.jdbc compatible
     db-spec map.
@@ -39,12 +39,9 @@
   [options]
   (map->Ragtime (merge default-options options)))
 
-(defn load-config  []
-  {:datastore  (jdbc/sql-database  {:connection-uri "jdbc:postgresql://localhost:5432/egg?user=egg"})})
-
 ;(migrate ragtime-component)
 (defn migrate
   "Migrates the dependent database to the latest migration."
   [{:keys  [datastore migrations strategy reporter]}]
   (let  [migrations  (map #(repl/wrap-reporting % reporter) migrations)]
-    (core/migrate-all datastore  {} migrations strategy)))
+    (core/migrate-all datastore {} migrations strategy)))

@@ -19,7 +19,7 @@ CREATE TABLE accounts.profiles
   --data specific to one relationship for this identity
   address_1 text NOT NULL,
   address_2 text NULL,
-  address_3 text
+  address_3 text,
   city text NULL,
   state text NULL,
   postal_code text NULL,
