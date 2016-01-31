@@ -9,6 +9,6 @@
   (GET "/staff" request
     (let [login-state (ident/extract request)]
       (l/landing-chrome "STAFF" 
-                      login-state
-                      (v/staff-timeline-widget)
-                      (v/staff-sidebar-widget)))))
+                        login-state
+                        (v/staff-timeline-widget)
+                        (v/staff-sidebar-widget)))))

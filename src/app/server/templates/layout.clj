@@ -1,7 +1,6 @@
 (ns app.server.templates.layout
   (:require [hiccup.page :refer [include-css html5 include-js]]
-            [app.server.navigation :as nav]
-            ))
+            [app.server.navigation :as nav]))
 
 (defn head 
   "Builds out the title and adds javascript"
@@ -16,38 +15,31 @@
 (defn render-login-state [login-state]
   (if-let [{avatar :avatar username :username} login-state] 
     [:div {:class "login-state"}
-      [:img {:src avatar :alt username :height 20}]
-      [:a {:href "/logout"} "Logout"]
-     ]
-    )  
-  )
+     [:img {:src avatar :alt username :height 20}]
+     [:a {:href "/logout"} "Logout"]]))
 
 (defn render-navigation []
   (let [navi (nav/build)]
     [:nav
      (for [n navi]
-       [:a {:href (:href n)} (:label n)]
-       )
-     ]
-    ))
+       [:a {:href (:href n)} (:label n)])]))
 
 (defn chrome 
   "Draw the main layout of a page"
   ([title body]
-    (chrome title nil body))
+   (chrome title nil body))
   ([title login-state body]
-  (html5
-   (head title)
-   [:body
-    [:div {:id "chrome"}
-     [:header
-      [:img {:src "/img/header-logo.png" :height "18px" :width "18px"}]
-      (render-navigation)
-      (render-login-state login-state)
-     ]
-     [:div {:id "stage"}
-      body]]
-    #_(include-js "/js/compiled/client.js")])))
+   (html5
+    (head title)
+    [:body
+     [:div {:id "chrome"}
+      [:header
+       [:img {:src "/img/header-logo.png" :height "18px" :width "18px"}]
+       (render-navigation)
+       (render-login-state login-state)]
+      [:div {:id "stage"}
+       body]]
+     #_(include-js "/js/compiled/client.js")])))
 
 (defn landing-chrome 
   "Draw the standard landing page chrome"
@@ -56,9 +48,9 @@
   ([title login-state left right]
    (chrome title 
            login-state
-          [:div {:id "landing"}
+           [:div {:id "landing"}
 
-           [:div {:id "landing-content"}
-            left]
-           [:div {:id "landing-sidebar"}
-            right]])))
+            [:div {:id "landing-content"}
+             left]
+            [:div {:id "landing-sidebar"}
+             right]])))

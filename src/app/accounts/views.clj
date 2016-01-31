@@ -1,12 +1,9 @@
 (ns app.accounts.views
-  (:require [app.server.templates.layout :as l])
-  )
+  (:require [app.server.templates.layout :as l]))
 (defn signup-form []
   [:h1 "signup"]
   [:section {:id "login-box"}
    [:form {:action "" :method "POST"}
-    [:label "Username"]
-    [:input {:type "text" :name "username"}]
     [:label "Email Address"]
     [:input {:type "text" :name "email"}]
     [:label "Password"]
@@ -19,10 +16,7 @@
 (defn post-signup-view [identity]
   (l/chrome "Thank You"
             [:div
-              [:p (str "Thank you for signing up. You will get an email soon. " (:name identity))]
-             ]))
-
-
+             [:p (str "Thank you for signing up. You will get an email soon. " (:email identity))]]))
 
 (defn account-overview [orgs users roles]
   [:section {:class "accounts"}

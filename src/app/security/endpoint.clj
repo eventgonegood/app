@@ -19,22 +19,21 @@
   (context "/login" []
     (GET "/" []
       (let [f (anti-forgery-field)]
-        (l/chrome "YO" 
+        (l/chrome "YO"
                   [:div {:id "login-box"}
                    [:form {:method "POST"}
-                    [:label "Username"]
-                    [:input {:type "text" :name "username" :autofocus "autofocus"}]
+                    [:label "Email"]
+                    [:input {:type "text" :name "email" :autofocus "autofocus"}]
                     [:label "Password"]
                     [:input {:type "password" :name "password"}]
                     [:button {:type "submit"} "submit"]]])))
-    (POST "/" request 
-      (let [username (get-in request [:form-params "username"])
+    (POST "/" request
+      (let [email (get-in request [:form-params "email"])
             password (get-in request [:form-params "password"])
             session (:session request)
             next-url (get-in request [:query-params "next"] "/")
-            result (ident/auth (:database config) username password) 
-            updated-session (assoc session :identity (get-in result [1 :user]))
-            ]
+            result (ident/auth (:database config) email password)
+            updated-session (assoc session :identity (get-in result [1 :user]))]
         (if (result 0)
           (let [u (-> (redirect next-url) (assoc :session updated-session))]
             (record-login (:database config) (get-in result [1 :user]))

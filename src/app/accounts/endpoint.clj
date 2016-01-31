@@ -10,12 +10,14 @@
     (context "/signup" []
       (GET "/" []
         (l/chrome "Signup" (v/signup-form)))
-      (POST "/" [email username password confirm_password]
+      (GET "/λ" []
+        "WUT")
+      (POST "/" [email password confirm_password]
         (if (= password confirm_password)
           (->
-            (i/register-identity db email username password)
-            (i/send-validation-email)
-            (v/post-signup-view))
+           (i/register-identity db email password)
+           (i/send-validation-email)
+           (v/post-signup-view))
           (l/chrome "WHOOT" "Password Mismatch")))
       (context "/drop-in" []
         (GET "/" []

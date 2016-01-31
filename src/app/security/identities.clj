@@ -1,5 +1,5 @@
 (ns app.security.identities
-  (:require 
+  (:require
    [com.stuartsierra.component :as component]
    [buddy.hashers :as hs]
    [clavatar.core :refer [gravatar]]
@@ -17,20 +17,20 @@
 (defn load-identity [db id]
   (agg/load security-er db :security.identities id))
 
-(defn find-identity [db username]
-  (first (sql-find-identity-by-username {:username username} {:connection db})))
+(defn find-identity [db email]
+  (first (sql-find-identity-by-username {:email email} {:connection db})))
 
-(defn auth [db username password]
-  (let [id (find-identity db username)
-        unauthed [false "Invalid username or password"]]
+(defn auth [db email password]
+  (let [id (find-identity db email)
+        unauthed [false "Invalid email or password"]]
     (if id
       (if (hs/check password (:password id))
         [true {:user (dissoc id :password)}]
         unauthed)
       unauthed)))
 
-(defn register-identity [db email username password]
-  (first (sql-insert-identity {:name username :email email :username username :password (hs/encrypt password)} {:connection db})))
+(defn register-identity [db email password]
+  (first (sql-insert-identity {:email email :password (hs/encrypt password)} {:connection db})))
 
 (defn load-all-identities [db]
   (sql-all-identities {} {:connection db}))
@@ -40,5 +40,5 @@
     (assoc identity :avatar (gravatar (:email identity) :default :retro :size 40))))
 
 (defn send-validation-email [identity]
-  (println (str "SENT EMAIL TO " (:email identity)))  
+  (println (str "SENT EMAIL TO " (:email identity)))
   identity)

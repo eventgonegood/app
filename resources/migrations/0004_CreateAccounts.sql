@@ -49,6 +49,7 @@ CREATE TABLE accounts.memberships
   organization_id int NOT NULL,
   profile_id int NOT NULL,
   role_id int NOT NULL,
+  stripe_token text NULL,
   created_on timestamp NOT NULL DEFAULT current_date,
   CONSTRAINT pk_memberships PRIMARY KEY (id)
 );

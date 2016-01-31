@@ -3,12 +3,11 @@ CREATE SCHEMA security
 
 CREATE TABLE security.identities
 (
-  id serial NOT NULL,
-  name text NOT NULL DEFAULT ''::text,
+  identity_id serial NOT NULL,
   email text NOT NULL,
   password text NOT NULL,
-  CONSTRAINT pk_users PRIMARY KEY (id),
-  CONSTRAINT uq_users_username UNIQUE (username)
+  CONSTRAINT pk_users PRIMARY KEY (identity_id),
+  CONSTRAINT uq_users_email UNIQUE (email)
 );
 ALTER TABLE security.identities
   OWNER TO ape;

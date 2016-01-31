@@ -13,11 +13,8 @@
             [app.security.middleware :refer [egg-backend egg-access-rules]]
             [app.security.endpoint :refer [login-endpoint logout-endpoint]]
             [app.accounts.endpoint :refer [accounts-endpoint signup-endpoint]]
+            [app.scheduling.endpoint :refer [scheduling-endpoint]]
             [app.staff.endpoint :refer [staff-endpoint]]
-            [app.coach.endpoint :refer [coach-endpoint]]
-            [app.athlete.endpoint :refer [athlete-endpoint]]
-            [app.competitions.score-entry :refer [score-entry-endpoint]]
-            [app.competitions.leaderboard :refer [leaderboard-endpoint]]
             [app.server.http :refer [new-http]]
             [app.server.migrate :refer [new-ragtime]]
             [clojure.pprint :refer [pprint]]))
@@ -51,16 +48,14 @@
          ;; endpoints
          :login-ep (endpoint-component login-endpoint)
          :logout-ep (endpoint-component logout-endpoint)
-         :score-entry-ep (endpoint-component score-entry-endpoint)
-         :leaderboard-ep (endpoint-component leaderboard-endpoint)
          :accounts-ep (endpoint-component accounts-endpoint)
          :signup-ep (endpoint-component signup-endpoint)
          :staff-ep (endpoint-component staff-endpoint)
-         :coach-ep (endpoint-component coach-endpoint)
-         :athlete-ep (endpoint-component athlete-endpoint))
+         :scheduling-ep (endpoint-component scheduling-endpoint))
         (component/system-using
          {:http [:app]
-          :app  [:login-ep :logout-ep :leaderboard-ep :score-entry-ep :accounts-ep :signup-ep :staff-ep :coach-ep :athlete-ep]
+          :app  [:login-ep :logout-ep :accounts-ep :signup-ep :staff-ep :scheduling-ep]
           :accounts-ep [:database]
           :signup-ep [:database]
+          :scheduling-ep [:database]
           :login-ep [:database]}))))

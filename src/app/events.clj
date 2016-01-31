@@ -18,6 +18,5 @@
 (defn needs-to-pay-log [id name amount]
   (log :financial (str name " owes " amount) ["Send Email"]))
 
-
 (defn record-login [db identity]
   (record db {:identity identity}))

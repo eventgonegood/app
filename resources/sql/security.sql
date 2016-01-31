@@ -1,8 +1,8 @@
 -- name: sql-insert-identity
 -- adds a new identity
-INSERT INTO security.identities (name, username, password, email)
-VALUES (:name, :username, :password, :email)
-RETURNING id, name, username, password, email;
+INSERT INTO security.identities (password, email)
+VALUES (:password, :email)
+RETURNING identity_id, password, email;
 
 
 -- name: sql-all-identities
@@ -14,4 +14,4 @@ FROM security.identities;
 -- find an identity by its username
 SELECT *
 FROM security.identities
-WHERE username = :username
+WHERE email = :email

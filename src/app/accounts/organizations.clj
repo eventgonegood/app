@@ -5,19 +5,18 @@
    [yesql.core :refer [defqueries]]))
 
 (def accounts-er (agg/make-er-config
-                    (agg/entity :accounts.profiles) ;links orgs to identities
-                    (agg/entity :accounts.roles)
-                    (agg/entity :accounts.organizations
-                                (agg/->mn :members  :accounts.profiles {:query-fn (agg/make-query-<many>-fn
-                                                                                :accounts.profiles
-                                                                                :accounts.memberships
-                                                                                :organization_id
-                                                                                :identity_id)}))
+                  (agg/entity :accounts.profiles) ;links orgs to identities
+                  (agg/entity :accounts.roles)
+                  (agg/entity :accounts.organizations
+                              (agg/->mn :members  :accounts.profiles {:query-fn (agg/make-query-<many>-fn
+                                                                                 :accounts.profiles
+                                                                                 :accounts.memberships
+                                                                                 :organization_id
+                                                                                 :identity_id)}))
 
-                     (agg/entity :accounts.memberships
-                       (agg/->1 :role :accounts.roles {:owned? false})
-                       (agg/->1 :organization :accounts.organizations {:owned? false}))
-                  ))
+                  (agg/entity :accounts.memberships
+                              (agg/->1 :role :accounts.roles {:owned? false})
+                              (agg/->1 :organization :accounts.organizations {:owned? false}))))
 
 (defn load-membership [db id]
   (agg/load accounts-er db :accounts.memberships id))

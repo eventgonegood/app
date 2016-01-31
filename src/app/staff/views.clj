@@ -2,7 +2,6 @@
   (:require 
    [app.events :as events]))
 
-
 (defmulti render-event :type)
 (defmethod render-event :financial [event]
   [:li {:class "financial"} 
@@ -36,9 +35,7 @@
 (defn add-contact-widget []
   [:div 
    [:button "Register Drop In"]
-   [:button "Enroll new Athlete"]
-   ]
-  )
+   [:button "Enroll new Athlete"]])
 
 (defn unpaid-metric []
   [:div
