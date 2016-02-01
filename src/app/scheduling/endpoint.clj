@@ -3,6 +3,8 @@
    [app.server.templates.layout :as l]
    [app.security.identities :as ident]
    [cheshire.core :as json]
+   [app.util :refer [str->int]]
+   [ring.util.response :refer [redirect]]
    [app.scheduling.schedule :as schedule]
    [compojure.core :refer :all]))
 
@@ -55,8 +57,57 @@
    [:script {:src "/js/scheduler.min.js" :type "text/javascript"}]
    [:script {:src "/js/scheduling.js" :type "text/javascript"}]])
 
+(defn new-schedule [levels]
+        [:h1 "Add some hustle"]
+        [:form {:action "/scheduling" :method "POST"}
+         [:label "Day of Week"]
+         [:select {:name "day-of-week"}
+          (for [d (keys the-week)]
+            [:option {:value d} (get-in the-week [d :label])])
+          ]
+          [:label "Level"]
+         [:select {:name "level"}
+          (for [l levels]
+            [:option {:value (:id l)} (:name l)]
+            )
+
+          ]
+         [:label "Title"]
+         [:input {:name "title" :type "text"}]
+         [:label "Starts at"]
+         [:input {:name "starts-at" :type "text"}]
+         [:label "Duration"]
+         [:input {:name "duration" :type "text"}]
+
+         [:button {:type "submit"} "New Slot"]
+         ]
+  )
+
 (defn scheduling-endpoint [config]
   (context "/scheduling" request
+    (GET "/new" request
+    (let [login-state (ident/extract request)
+          db (:database config)
+          levels (schedule/levels db 1)
+          ]
+         (l/chrome "Add New Schedule"
+                   login-state
+                   (new-schedule levels))))
+    (POST "/" [day-of-week level title starts-at duration :as request]
+          (let [login-state (ident/extract request)
+                db (:database config)
+                new-slot {
+                          :day_of_week day-of-week
+                          :level (str->int level)
+                          :title title
+                          :start_at starts-at
+                          :duration duration
+                          :organization_id 1 ; (:organization_id login-state)
+                          }
+                ]
+            (schedule/register db new-slot)
+            (redirect "/scheduling")
+            ))
     (GET "/" request
       (let [login-state (ident/extract request)
             db (:database config)

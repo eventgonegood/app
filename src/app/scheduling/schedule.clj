@@ -13,7 +13,7 @@
 (defn weekly [db organization_id]
   (let [raw-values (sql-gym-schedule {:organization_id organization_id} {:connection db
                                                                          :row-fn convert})
-        ;day_of_week, class, title, start_at, end_at, duration
+        ;day_of_week, clkass, title, start_at, end_at, duration
         ;group by day of week, class {:day_of_week
         ;classes (map #({(:class $) []}) raw-values)
         ;init-struct (map (fn [dow] {dow (mapv (fn [c] {:class c :times []}) classes)}) days-of-week)
@@ -23,3 +23,9 @@
 
     {:dow-layout [:sunday :monday :tuesday :wednesday :thursday :saturday]
      :classes raw-values}))
+
+(defn register [db slot]
+  (sql-insert-class! slot {:connection db}))
+
+(defn levels [db organization_id]
+  (sql-gym-levels {:organization_id organization_id} {:connection db}))

@@ -6,3 +6,14 @@ FROM scheduling.classes AS c
   	ON l.id = c.level_id
 WHERE c.organization_id = :organization_id
   AND l.organization_id = :organization_id
+
+-- name: sql-insert-class!
+-- stuff
+INSERT INTO scheduling.classes (day_of_week, level_id, title, start_at, duration, organization_id)
+VALUES (:day_of_week::scheduling.day_of_week, :level, :title, :start_at::time, :duration::interval, :organization_id)
+
+-- name: sql-gym-levels
+-- get all of the levels the gym offers
+SELECT id, name
+FROM scheduling.levels
+WHERE organization_id = :organization_id;

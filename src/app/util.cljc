@@ -3,7 +3,7 @@
   [com.rpl.specter.macros :as d]) )
 
 
-(defn by-id 
+(defn by-id
   "A helper function for the specter library"
   [id]
   (fn [v]
@@ -15,7 +15,7 @@
     )
   (transform* [this structure next-fn]
     (mapv next-fn structure)
-    )) 
+    ))
 
 (defn trim-request [request]
   (->
@@ -27,4 +27,7 @@
    (update-in ,,, [:cookies] dissoc "ajs_user_id")
    (update-in ,,, [:cookies] dissoc "ajs_group_id")
    (dissoc ,,, :async-channel)
-   (update-in ,,, [:headers] dissoc "cookie")))  
+   (update-in ,,, [:headers] dissoc "cookie")))
+
+(defn str->int [str]
+  (Integer. str))
