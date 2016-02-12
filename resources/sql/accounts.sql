@@ -33,3 +33,14 @@ FROM accounts.users AS u
   INNER JOIN accounts.organizations AS o
     ON o.id = m.organization_id
 WHERE u.username = :username;
+
+-- name: sql-add-profile
+-- inserts a new profile
+INSERT INTO accounts.profiles (identity_id,
+  name, address_1, address_2, address_3, city, state,
+  postal_code, emergency_contact_name, emergency_contact_phone,
+  waiver, waiver_signed_on, created_on)
+VALUES
+  (:identity_id, :name, :address_1, :address_2, :address_3, :city, :state, :postal_code,
+    :emergency_contact_name, :emergency_contact_phone,
+   :waiver, NOW(), NOW());

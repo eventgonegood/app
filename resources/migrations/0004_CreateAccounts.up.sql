@@ -25,8 +25,6 @@ CREATE TABLE accounts.profiles
   postal_code text NULL,
   emergency_contact_name text NULL,
   emergency_contact_phone text NULL,
-  waiver text NULL,
-  waiver_signed_on timestamp NULL,
   created_on timestamp NOT NULL DEFAULT current_date,
   CONSTRAINT pk_profiles PRIMARY KEY (id)
 );
@@ -41,17 +39,4 @@ CREATE TABLE accounts.roles
   CONSTRAINT pk_roles PRIMARY KEY (id)
 );
 ALTER TABLE accounts.roles
-  OWNER TO ape;
-
-CREATE TABLE accounts.memberships
-(
-  id serial NOT NULL,
-  organization_id int NOT NULL,
-  profile_id int NOT NULL,
-  role_id int NOT NULL,
-  stripe_token text NULL,
-  created_on timestamp NOT NULL DEFAULT current_date,
-  CONSTRAINT pk_memberships PRIMARY KEY (id)
-);
-ALTER TABLE accounts.memberships
   OWNER TO ape;

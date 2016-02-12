@@ -2,6 +2,6 @@
 
 (defn build []
   [{:label "Staff" :href "/staff"}
-   {:label "Members" :href "/members"}
+   {:label "Membership" :href "/membership"}
    {:label "Plans" :href "/plans"}
    {:label "Scheduling" :href "/scheduling"}])

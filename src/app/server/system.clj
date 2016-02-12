@@ -13,6 +13,7 @@
             [app.security.middleware :refer [egg-backend egg-access-rules]]
             [app.security.endpoint :refer [login-endpoint logout-endpoint]]
             [app.accounts.endpoint :refer [accounts-endpoint signup-endpoint]]
+            [app.membership.endpoint :refer [membership-endpoint]]
             [app.scheduling.endpoint :refer [scheduling-endpoint]]
             [app.staff.endpoint :refer [staff-endpoint]]
             [app.server.http :refer [new-http]]
@@ -47,6 +48,7 @@
 
          ;; endpoints
          :login-ep (endpoint-component login-endpoint)
+         :membership-ep (endpoint-component membership-endpoint)
          :logout-ep (endpoint-component logout-endpoint)
          :accounts-ep (endpoint-component accounts-endpoint)
          :signup-ep (endpoint-component signup-endpoint)
@@ -54,8 +56,9 @@
          :scheduling-ep (endpoint-component scheduling-endpoint))
         (component/system-using
          {:http [:app]
-          :app  [:login-ep :logout-ep :accounts-ep :signup-ep :staff-ep :scheduling-ep]
+          :app  [:login-ep :logout-ep :accounts-ep :signup-ep :staff-ep :scheduling-ep :membership-ep]
           :accounts-ep [:database]
           :signup-ep [:database]
+          :membership-ep [:database]
           :scheduling-ep [:database]
           :login-ep [:database]}))))
